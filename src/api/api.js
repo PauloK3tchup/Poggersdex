@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const lista = axios.create({
+const api = axios.create({
   baseURL: "https://pokeapi.co/api/v2/",
 });
 
-export default lista;
+export default api;
