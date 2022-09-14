@@ -10,7 +10,7 @@ export default {
       atual: "Pokemon não selecionado",
       pokemon_atual: [
         {
-          nome: "Pokémon não selecionado",
+          nome: this.atual,
           indice: "",
           tipo: "",
           sprite: "",
@@ -44,7 +44,7 @@ export default {
         v-for="pokemon in api.results"
         :key="pokemon.url"
       >
-        <a @click.prevent="(atual = pokemon.name), select" href="">
+        <a @click.prevent="atual = pokemon.name" href="">
           {{ pokemon.name }}
         </a>
       </li>
@@ -58,7 +58,9 @@ export default {
     </button>
   </div>
   <ul>
-    <li v-for="info in pokemon_atual" :key="info.nome">{{ info.nome }}</li>
+    <li v-for="info in pokemon_atual" :key="info.nome">
+      Nome: {{ info.nome }} Indice: {{ info.indice }}
+    </li>
   </ul>
   <PokemonInfo :texto="pokemon_atual" />
 </template>
