@@ -1,11 +1,19 @@
 <script>
 export default {
-  props: ["texto"],
+  props: ["habilidade", "img", "texto", "id", "tipo"],
 };
 </script>
 <template>
   <div class="block">
-    <h1>{{ texto }}</h1>
+    <h1 class="nomeDoPokemon">{{ texto }}</h1>
+    <h3 class="nomeDoPokemon">{{ tipo }}</h3>
+    <p>{{ id }}</p>
+    <img :src="img" alt="wha" />
+    <p>{{ habilidade }}</p>
   </div>
 </template>
-<style></style>
+<style>
+.nomeDoPokemon {
+  text-transform: capitalize;
+}
+</style>

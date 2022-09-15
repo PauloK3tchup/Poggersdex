@@ -7,23 +7,24 @@ export default {
   data() {
     return {
       api: {},
-      atual: "Pokemon não selecionado",
-      pokemon_atual: [
-        {
-          nome: this.atual,
-          indice: "",
-          tipo: "",
-          sprite: "",
-        },
-      ],
+      atual: "bulbasaur",
+      urlP: "http://pokeapi.co/api/v2/pokemon/",
+      poke: {},
+      sprite: {},
     };
   },
   created() {
     this.fetchPokemons();
+    this.mostrarInfo();
   },
   methods: {
     fetchPokemons(url = "http://pokeapi.co/api/v2/pokemon/?offset=0&limit=70") {
       axios.get(url).then(({ data }) => (this.api = data));
+    },
+    mostrarInfo(url = this.urlP + this.atual) {
+      axios
+        .get(url)
+        .then(({ data }) => ((this.poke = data), (this.sprite = data.sprites)));
     },
     next() {
       this.fetchPokemons(this.api.next);
@@ -44,9 +45,13 @@ export default {
         v-for="pokemon in api.results"
         :key="pokemon.url"
       >
-        <a @click.prevent="atual = pokemon.name" href="">
+        <button
+          @click="
+            (atual = pokemon.name), mostrarInfo((url = this.urlP + this.atual))
+          "
+        >
           {{ pokemon.name }}
-        </a>
+        </button>
       </li>
     </ul>
 
@@ -57,11 +62,11 @@ export default {
       Próximo
     </button>
   </div>
-  <ul>
-    <li v-for="info in pokemon_atual" :key="info.nome">
-      Nome: {{ info.nome }} Indice: {{ info.indice }}
-    </li>
-  </ul>
-  <PokemonInfo :texto="pokemon_atual" />
+  <PokemonInfo
+    :texto="poke.name"
+    :id="poke.id"
+    :habilidade="poke.abilities"
+    :img="sprite.front_default"
+  />
 </template>
 <style></style>
