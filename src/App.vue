@@ -1,14 +1,30 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+import HeaderComp2 from "./components/HeaderComp2.vue";
 </script>
 
 <template>
   <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
+    <HeaderComp2 />
   </nav>
-
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
-<style scoped></style>
+<style>
+@import "../src/assets/base.css";
+@import "../src/assets/main.css";
+
+#app {
+  max-width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  font-weight: normal;
+}
+
+main {
+  height: 70%;
+  margin: 1%;
+}
+</style>
