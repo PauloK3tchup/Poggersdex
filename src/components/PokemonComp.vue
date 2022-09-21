@@ -8,6 +8,7 @@ export default {
     return {
       api: {},
       atual: "bulbasaur",
+      pesquisa: "",
       urlP: "http://pokeapi.co/api/v2/pokemon/",
       poke: {},
       sprite: {},
@@ -47,7 +48,13 @@ export default {
 <template>
   <div class="container">
     <h1>Pokedex</h1>
-
+    <div class="pesquisa">
+      <p>Pesquise pelo nome (em letras minúsculas) ou pelo índice do pokémon</p>
+      <input placeholder="Exemplo: mew ou 151" type="text" v-model="pesquisa" />
+      <button @click="mostrarInfo((url = this.urlP + this.pesquisa))">
+        Pesquisar
+      </button>
+    </div>
     <ul class="">
       <li class="" v-for="pokemon in api.results" :key="pokemon.url">
         <button
@@ -84,6 +91,7 @@ button.poke {
   transition: 0.1s;
   text-transform: capitalize;
   cursor: pointer;
+  border: solid 1px black;
 }
 
 div.container {
