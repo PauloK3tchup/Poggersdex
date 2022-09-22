@@ -14,6 +14,9 @@ export default {
       sprite: {},
       tipos: {},
       habilidades: {},
+      formas: {},
+      stats: {},
+      movimento: {},
     };
   },
   created() {
@@ -32,7 +35,10 @@ export default {
             (this.poke = data),
             (this.sprite = data.sprites),
             (this.tipos = data.types),
-            (this.habilidades = data.abilities)
+            (this.habilidades = data.abilities),
+            (this.formas = data.forms),
+            (this.stats = data.stats),
+            (this.movimento = data.moves)
           )
         );
     },
@@ -50,12 +56,20 @@ export default {
     <h1>Pokedex</h1>
     <div class="pesquisa">
       <p>Pesquise pelo nome (em letras minúsculas) ou pelo índice do pokémon</p>
-      <input placeholder="Exemplo: mew ou 151" type="text" v-model="pesquisa" />
-      <button @click="mostrarInfo((url = this.urlP + this.pesquisa))">
+      <input
+        class="pesquisarInput"
+        placeholder="Exemplo: mew ou 151"
+        type="text"
+        v-model="pesquisa"
+      />
+      <button
+        class="pesquisarBotao"
+        @click="mostrarInfo((url = this.urlP + this.pesquisa))"
+      >
         Pesquisar
       </button>
     </div>
-    <ul class="">
+    <ul class="lista-poke">
       <li class="" v-for="pokemon in api.results" :key="pokemon.url">
         <button
           class="poke"
@@ -77,6 +91,9 @@ export default {
     :habilidade="habilidades"
     :img="sprite.front_default"
     :tipo="tipos"
+    :formas="formas"
+    :tamanho="poke.height"
+    :stats="stats"
   />
 </template>
 <style>
@@ -105,5 +122,58 @@ button.poke:hover {
   color: rgb(255, 255, 255);
   font-weight: 1000;
   -webkit-text-stroke: 1px rgb(0, 0, 0);
+}
+
+button.poke:active {
+  transform: scale(1);
+  background: linear-gradient(0deg, red 50%, white 50%);
+  border: solid 3px black;
+  color: rgb(255, 255, 255);
+  font-weight: 1000;
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
+}
+
+.pesquisarInput {
+  height: 40px;
+  padding: 5px;
+  border-radius: 10px;
+  border: solid 2px black;
+}
+
+.pesquisarInput:hover {
+  background-color: antiquewhite;
+}
+
+.pesquisarInput:active {
+  border: solid 3px black;
+}
+
+button.pesquisarBotao {
+  width: auto;
+  height: 50px;
+  border-radius: 12px;
+  margin: 5px;
+  font-size: 15px;
+  transition: 0.1s;
+  text-transform: capitalize;
+  cursor: pointer;
+  border: solid 1px black;
+  background: linear-gradient(
+    180deg,
+    rgb(255, 187, 0) 50%,
+    rgb(26, 26, 26) 50%
+  );
+  color: rgb(255, 255, 255);
+  font-weight: 1000;
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
+}
+
+button.pesquisarBotao:hover {
+  transform: scale(1.3);
+}
+
+button.pesquisarBotao:active {
+  transform: scale(1);
+  background: linear-gradient(0deg, rgb(255, 187, 0) 50%, rgb(26, 26, 26) 50%);
 }
 </style>

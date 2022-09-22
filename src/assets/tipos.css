@@ -1,151 +1,86 @@
-.grass {
-  background-color: #008000;
-  color: white;
+#tipoTexto{ 
   padding: 5px;
   border-radius: 10px;
   text-transform: capitalize;
   margin: 2px;
+}
+.grass {
+  background-color: #008000;
+  color: white;
 }
 
 .poison {
   background-color: rgb(92, 0, 128);
   color: white;
-  padding: 5px;
-  border-radius: 10px;
-  text-transform: capitalize;
-  margin: 2px;
 }
 
 .water {
     background-color: #0059ff;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
   }
   
 .normal {
     background-color: #2c2c2c;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
+}
 
 .electric {
     background-color: #e5ff00;
     color: rgb(0, 0, 0);
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
+}
 
-  .fire {
+.fire {
     background-color: #ff5100;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .flying {
+}
+.flying {
     background-color: #bdbdbd;
     color: black;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .ground {
+}
+.ground {
     background-color: #521e00;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
     margin: 2px;
-  }
-  .rock {
+}
+.rock {
     background-color: #131313;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
+}
 
-  .bug {
+.bug {
     background-color: #003a00;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .fairy {
+}
+.fairy {
     background-color: #f500b8;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .psychic {
+}
+.psychic {
     background-color: #530045;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .fighting {
+}
+.fighting {
     background-color: #790000;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .ice {
+}
+.ice {
     background-color: #00f7ff;
     color: rgb(0, 0, 0);
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .dark {
+}
+.dark {
     background-color: #000000;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .ghost {
+}
+.ghost {
     background-color: #260057;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .steel {
+}
+.steel {
     background-color: #a8a8a8;
     color: rgb(0, 0, 0);
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
-  .dragon {
+}
+.dragon {
     background-color: #942f00;
     color: white;
-    padding: 5px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    margin: 2px;
-  }
+}
       

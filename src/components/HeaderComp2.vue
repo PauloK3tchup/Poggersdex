@@ -1,15 +1,18 @@
 <template>
   <header class="menu-superior">
     <div class="menu-esquerdo">
-      <span><RouterLink to="/" class="botão"> Home </RouterLink></span>
-      <span> | </span>
-      <span> <RouterLink to="/about" class="botão"> About </RouterLink> </span>
+      <span
+        ><RouterLink to="/" class="botão">
+          <img class="vitinho" src="../assets/Victini_Icon.png" alt="vitinho" />
+          PoggersDex
+        </RouterLink></span
+      >
     </div>
-    <div class="menu-direito">
+    <!-- <div class="menu-direito">
       <span>
         <RouterLink to="/" class="botão"> Sair </RouterLink>
       </span>
-    </div>
+    </div> -->
   </header>
 </template>
 
@@ -24,7 +27,7 @@ header {
   background-color: crimson;
   color: white;
   height: 15%;
-  font-size: 1.3rem;
+  font-size: 30px;
   display: flex;
   align-items: center;
   padding-left: 2rem;
@@ -45,6 +48,11 @@ a.botão {
 }
 
 a.botão:hover {
-  transform: scale(1.5) rotate(5deg);
+  transform: scale(1.3) rotate(5deg);
+}
+
+.vitinho {
+  height: 40px;
+  float: left;
 }
 </style>
