@@ -63,7 +63,7 @@ export default {
           "
         >
           {{ pokemon.name }}
-          <img :src="urlImg + pokemon.index + '.png'" alt="Sexo" />
+          <img :src="urlImg + pokemon + '.png'" alt="Sexo" />
         </button>
       </li>
     </ul>
