@@ -9,7 +9,6 @@ export default {
     "formas",
     "tamanho",
     "stats",
-    "movimentos",
   ],
 };
 </script>
@@ -57,12 +56,7 @@ export default {
     </div>
   </div>
   <div class="informa2">
-    <h1 class="nomeDoPokemon">Movimentos:</h1>
-    <div v-for="(value, index) in movimentos" :key="'value' + index">
-      <span id="tipoTexto" :class="value.type.name">
-        {{ value.move.name }}
-      </span>
-    </div>
+    <h1 class="nomeDoPokemon">Evoluções:</h1>
   </div>
 </template>
 <style scoped>
@@ -71,23 +65,6 @@ export default {
 .nomeDoPokemon {
   text-transform: capitalize;
 }
-
-div.informa2 {
-  background-color: crimson;
-  color: white;
-  width: 50%;
-  height: 25%;
-  padding: 10px;
-  margin: 2%;
-  border-radius: 10px;
-  border: solid 3px black;
-  float: right;
-
-  position: fixed;
-  bottom: 10%;
-  right: 10%;
-}
-
 div.informa {
   background-color: crimson;
   color: white;
@@ -100,8 +77,8 @@ div.informa {
   float: right;
 
   position: fixed;
-  top: 10%;
-  right: 10%;
+  top: 11%;
+  right: 1%;
 }
 
 .info {

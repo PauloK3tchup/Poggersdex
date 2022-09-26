@@ -10,13 +10,14 @@ export default {
       atual: "bulbasaur",
       pesquisa: "",
       urlP: "http://pokeapi.co/api/v2/pokemon/",
+      urlImg:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/",
       poke: {},
       sprite: {},
       tipos: {},
       habilidades: {},
       formas: {},
       stats: {},
-      movimento: {},
     };
   },
   created() {
@@ -37,8 +38,7 @@ export default {
             (this.tipos = data.types),
             (this.habilidades = data.abilities),
             (this.formas = data.forms),
-            (this.stats = data.stats),
-            (this.movimento = data.moves)
+            (this.stats = data.stats)
           )
         );
     },
@@ -54,23 +54,8 @@ export default {
 <template>
   <div class="container">
     <h1>Pokedex</h1>
-    <div class="pesquisa">
-      <p>Pesquise pelo nome (em letras minúsculas) ou pelo índice do pokémon</p>
-      <input
-        class="pesquisarInput"
-        placeholder="Exemplo: mew ou 151"
-        type="text"
-        v-model="pesquisa"
-      />
-      <button
-        class="pesquisarBotao"
-        @click="mostrarInfo((url = this.urlP + this.pesquisa))"
-      >
-        Pesquisar
-      </button>
-    </div>
     <ul class="lista-poke">
-      <li class="" v-for="pokemon in api.results" :key="pokemon.url">
+      <li class="pokemao" v-for="pokemon in api.results" :key="pokemon.url">
         <button
           class="poke"
           @click="
@@ -78,6 +63,7 @@ export default {
           "
         >
           {{ pokemon.name }}
+          <img :src="urlImg + pokemon.index + '.png'" alt="Sexo" />
         </button>
       </li>
     </ul>
@@ -97,9 +83,13 @@ export default {
   />
 </template>
 <style>
+ul li.pokemao {
+  display: inline-block;
+}
+
 button.poke {
-  width: auto;
-  height: 50px;
+  width: 115px;
+  height: 115px;
   border-radius: 12px;
   margin: 5px;
   background-color: #20e8a9;
@@ -113,6 +103,8 @@ button.poke {
 
 div.container {
   display: inline-block;
+  margin-top: 6%;
+  width: 45%;
 }
 
 button.poke:hover {
@@ -122,6 +114,7 @@ button.poke:hover {
   color: rgb(255, 255, 255);
   font-weight: 1000;
   -webkit-text-stroke: 1px rgb(0, 0, 0);
+  z-index: 4;
 }
 
 button.poke:active {

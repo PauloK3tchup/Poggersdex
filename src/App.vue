@@ -25,6 +25,6 @@ import HeaderComp2 from "./components/HeaderComp2.vue";
 
 main {
   height: 70%;
-  margin: 1%;
+  margin: 0% 1% 1% 1%;
 }
 </style>

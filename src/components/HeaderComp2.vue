@@ -1,3 +1,4 @@
+<script></script>
 <template>
   <header class="menu-superior">
     <div class="menu-esquerdo">
@@ -7,6 +8,21 @@
           PoggersDex
         </RouterLink></span
       >
+      <div class="pesquisa">
+        <input
+          class="pesquisarInput"
+          placeholder="Exemplo: mew ou 151"
+          type="text"
+          v-model="pesquisa"
+          @keydown.enter="mostrarInfo((url = this.urlP + this.pesquisa))"
+        />
+        <button
+          class="pesquisarBotao"
+          @click="mostrarInfo((url = this.urlP + this.pesquisa))"
+        >
+          Pesquisar
+        </button>
+      </div>
     </div>
     <!-- <div class="menu-direito">
       <span>
@@ -16,7 +32,10 @@
   </header>
 </template>
 
-<style>
+<style scoped>
+div.pesquisa {
+  float: right;
+}
 header.menu-superior {
   display: flex;
   align-items: center;
@@ -26,12 +45,16 @@ header.menu-superior {
 header {
   background-color: crimson;
   color: white;
-  height: 15%;
+  height: 10%;
+  width: 100%;
   font-size: 30px;
   display: flex;
   align-items: center;
   padding-left: 2rem;
   padding: 20px;
+  position: fixed;
+  margin: 0%;
+  z-index: 5;
 }
 
 header span {
