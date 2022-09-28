@@ -53,7 +53,7 @@ export default {
 </script>
 <template>
   <div class="container">
-    <h1>Pokedex</h1>
+    <h1>Lista de Pokémon:</h1>
     <ul class="lista-poke">
       <li class="pokemao" v-for="pokemon in api.results" :key="pokemon.url">
         <button
