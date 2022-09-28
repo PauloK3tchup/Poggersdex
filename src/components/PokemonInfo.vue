@@ -55,9 +55,6 @@ export default {
       <span class="info"> {{ tamanho / 10 }}m </span>
     </div>
   </div>
-  <div class="informa2">
-    <h1 class="nomeDoPokemon">Evoluções:</h1>
-  </div>
 </template>
 <style scoped>
 @import "../assets/tipos.css";
@@ -104,9 +101,34 @@ div.informa img {
 
 .bloco {
   display: inline-block;
+  max-height: 200px;
+  width: 170px;
   margin: 5px;
   background-color: rgb(146, 19, 45);
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 5px;
+  overflow-y: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(146, 19, 45);
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(100, 11, 30);
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(75, 8, 22);
 }
 </style>

@@ -63,7 +63,7 @@ export default {
           "
         >
           {{ pokemon.name }}
-          <img :src="urlImg + pokemon + '.png'" alt="Sexo" />
+          <img :src="urlImg + poke.id + '.png'" alt="" />
         </button>
       </li>
     </ul>
@@ -81,6 +81,7 @@ export default {
     :tamanho="poke.height"
     :stats="stats"
   />
+  <h2>Este projeto foi feito por Paulo César & Gabriel Domingos</h2>
 </template>
 <style>
 ul li.pokemao {
