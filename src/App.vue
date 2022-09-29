@@ -1,6 +1,9 @@
-<script setup>
+<script>
 import { RouterView } from "vue-router";
 import HeaderComp2 from "./components/HeaderComp2.vue";
+export default {
+  components: { RouterView, HeaderComp2 },
+};
 </script>
 
 <template>
@@ -21,6 +24,10 @@ import HeaderComp2 from "./components/HeaderComp2.vue";
   margin: 0 auto;
   height: 100vh;
   font-weight: normal;
+}
+
+nav {
+  margin: 0%;
 }
 
 main {

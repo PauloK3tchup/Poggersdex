@@ -1,4 +1,21 @@
-<script></script>
+<script>
+import { useCounterStore } from "../stores/counter";
+import { mapStores, mapActions, mapState } from "pinia";
+export default {
+  data() {
+    return {
+      pesquisa_alteravel: "bulbasaur",
+    };
+  },
+  computed: {
+    ...mapStores(useCounterStore),
+    ...mapState(useCounterStore, ["count", "pesquisa"]),
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["increment", "pesquisarPoke"]),
+  },
+};
+</script>
 <template>
   <header class="menu-superior">
     <div class="menu-esquerdo">
@@ -13,13 +30,10 @@
           class="pesquisarInput"
           placeholder="Exemplo: mew ou 151"
           type="text"
-          v-model="pesquisa"
-          @keydown.enter="mostrarInfo((url = this.urlP + this.pesquisa))"
+          v-model="nova_pesquisa"
+          @keydown.enter="pesquisarPoke(nova_pesquisa)"
         />
-        <button
-          class="pesquisarBotao"
-          @click="mostrarInfo((url = this.urlP + this.pesquisa))"
-        >
+        <button class="pesquisarBotao" @click="pesquisarPoke(nova_pesquisa)">
           Pesquisar
         </button>
       </div>

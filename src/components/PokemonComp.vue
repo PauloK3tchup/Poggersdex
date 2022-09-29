@@ -1,17 +1,16 @@
 <script>
 import axios from "axios";
 import PokemonInfo from "../components/PokemonInfo.vue";
-
+import PokeBloco from "./PokeBloco.vue";
+import { useCounterStore } from "../stores/counter";
+import { mapStores, mapActions, mapState } from "pinia";
 export default {
-  components: { PokemonInfo },
+  components: { PokemonInfo, PokeBloco },
   data() {
     return {
       api: {},
       atual: "bulbasaur",
-      pesquisa: "",
       urlP: "http://pokeapi.co/api/v2/pokemon/",
-      urlImg:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/",
       poke: {},
       sprite: {},
       tipos: {},
@@ -24,11 +23,16 @@ export default {
     this.fetchPokemons();
     this.mostrarInfo();
   },
+  computed: {
+    ...mapStores(useCounterStore),
+    ...mapState(useCounterStore, ["count", "pesquisa"]),
+  },
   methods: {
+    ...mapActions(useCounterStore, ["increment", "pesquisarPoke"]),
     fetchPokemons(url = "http://pokeapi.co/api/v2/pokemon/?offset=0&limit=70") {
       axios.get(url).then(({ data }) => (this.api = data));
     },
-    mostrarInfo(url = this.urlP + this.atual) {
+    mostrarInfo(url = this.urlP + (this.atual || this.pesquisa)) {
       axios
         .get(url)
         .then(
@@ -52,36 +56,36 @@ export default {
 };
 </script>
 <template>
-  <div class="container">
-    <h1>Lista de Pokémon:</h1>
-    <ul class="lista-poke">
-      <li class="pokemao" v-for="pokemon in api.results" :key="pokemon.url">
-        <button
-          class="poke"
-          @click="
-            (atual = pokemon.name), mostrarInfo((url = this.urlP + this.atual))
-          "
-        >
-          {{ pokemon.name }}
-          <img :src="urlImg + poke.id + '.png'" alt="" />
-        </button>
-      </li>
-    </ul>
+  <main>
+    <div class="container">
+      <h1>Lista de Pokémon: {{ pesquisa }}</h1>
+      <ul class="lista-poke">
+        <li class="pokemao" v-for="pokemon in api.results" :key="pokemon.url">
+          <PokeBloco
+            :pokemonP="pokemon"
+            @click="
+              (atual = pokemon.name),
+                mostrarInfo((url = this.urlP + this.atual))
+            "
+          />
+        </li>
+      </ul>
 
-    <button class="" v-if="api.previous" @click="previous">Voltar</button>
-    <button class="" v-if="api.next" @click="next">Próximo</button>
-  </div>
-  <PokemonInfo
-    :texto="poke.name"
-    :id="poke.id"
-    :habilidade="habilidades"
-    :img="sprite.front_default"
-    :tipo="tipos"
-    :formas="formas"
-    :tamanho="poke.height"
-    :stats="stats"
-  />
-  <h2>Este projeto foi feito por Paulo César & Gabriel Domingos</h2>
+      <button class="" v-if="api.previous" @click="previous">Voltar</button>
+      <button class="" v-if="api.next" @click="next">Próximo</button>
+    </div>
+    <PokemonInfo
+      :texto="poke.name"
+      :id="poke.id"
+      :habilidade="habilidades"
+      :img="sprite.front_default"
+      :tipo="tipos"
+      :formas="formas"
+      :tamanho="poke.height"
+      :stats="stats"
+    />
+    <h2>Este projeto foi feito por Paulo César & Gabriel Domingos</h2>
+  </main>
 </template>
 <style>
 ul li.pokemao {
