@@ -5,6 +5,7 @@ export default {
   data() {
     return {
       sprite: {},
+      id: {},
     };
   },
   created() {
@@ -12,7 +13,9 @@ export default {
   },
   methods: {
     fetchFoto(url = this.pokemonP.url) {
-      axios.get(url).then(({ data }) => (this.sprite = data.sprites));
+      axios
+        .get(url)
+        .then(({ data }) => (this.sprite = data.sprites)((this.id = data.id)));
     },
   },
 };
@@ -20,7 +23,7 @@ export default {
 
 <template>
   <button class="poke">
-    {{ pokemonP.name }}
+    <p>{{ id }}.{{ pokemonP.name }}</p>
     <img :src="sprite.front_default" />
   </button>
 </template>

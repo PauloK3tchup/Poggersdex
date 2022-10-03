@@ -28,14 +28,14 @@ export default {
       <div class="pesquisa">
         <input
           class="pesquisarInput"
-          placeholder="Exemplo: mew ou 151"
+          placeholder="Pesquise o Pokémon pelo nome"
           type="text"
           v-model="nova_pesquisa"
-          @keydown.enter="pesquisarPoke(nova_pesquisa)"
+          @keyup="pesquisarPoke(nova_pesquisa)"
         />
-        <button class="pesquisarBotao" @click="pesquisarPoke(nova_pesquisa)">
+        <!-- <button class="pesquisarBotao" @click="pesquisarPoke(nova_pesquisa)">
           Pesquisar
-        </button>
+        </button> -->
       </div>
     </div>
     <!-- <div class="menu-direito">
@@ -49,6 +49,10 @@ export default {
 <style scoped>
 div.pesquisa {
   float: right;
+}
+
+div.pesquisa input {
+  width: 350px;
 }
 header.menu-superior {
   display: flex;

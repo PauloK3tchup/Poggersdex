@@ -66,7 +66,7 @@ div.informa {
   background-color: crimson;
   color: white;
   width: 50%;
-  height: 45%;
+  height: fit-content;
   padding: 10px;
   margin: 2%;
   border-radius: 10px;

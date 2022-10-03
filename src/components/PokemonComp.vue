@@ -8,10 +8,12 @@ export default {
   components: { PokemonInfo, PokeBloco },
   data() {
     return {
-      api: {},
-      atual: "bulbasaur",
+      api: {
+        results: [],
+      },
       urlP: "http://pokeapi.co/api/v2/pokemon/",
       poke: {},
+      atual: "1",
       sprite: {},
       tipos: {},
       habilidades: {},
@@ -27,12 +29,25 @@ export default {
     ...mapStores(useCounterStore),
     ...mapState(useCounterStore, ["count", "pesquisa"]),
   },
+  watch: {
+    pesquisa() {
+      const filter = this.api.results.filter((a) =>
+        a.name.includes(this.pesquisa)
+      );
+      if (filter.length === 1) {
+        this.atual = filter[0].name;
+        this.mostrarInfo();
+      }
+    },
+  },
   methods: {
     ...mapActions(useCounterStore, ["increment", "pesquisarPoke"]),
-    fetchPokemons(url = "http://pokeapi.co/api/v2/pokemon/?offset=0&limit=70") {
+    fetchPokemons(
+      url = "http://pokeapi.co/api/v2/pokemon/?offset=0&limit=1000"
+    ) {
       axios.get(url).then(({ data }) => (this.api = data));
     },
-    mostrarInfo(url = this.urlP + (this.atual || this.pesquisa)) {
+    mostrarInfo(url = this.urlP + this.atual) {
       axios
         .get(url)
         .then(
@@ -46,21 +61,21 @@ export default {
           )
         );
     },
-    next() {
-      this.fetchPokemons(this.api.next);
-    },
-    previous() {
-      this.fetchPokemons(this.api.previous);
-    },
   },
 };
 </script>
 <template>
   <main>
     <div class="container">
-      <h1>Lista de Pokémon: {{ pesquisa }}</h1>
+      <h1 class="letraGrande">Lista de Pokémon: {{ pesquisa }}</h1>
       <ul class="lista-poke">
-        <li class="pokemao" v-for="pokemon in api.results" :key="pokemon.url">
+        <li
+          class="pokemao"
+          v-for="pokemon in api.results.filter((a) =>
+            a.name.includes(pesquisa)
+          )"
+          :key="pokemon.url"
+        >
           <PokeBloco
             :pokemonP="pokemon"
             @click="
@@ -70,9 +85,6 @@ export default {
           />
         </li>
       </ul>
-
-      <button class="" v-if="api.previous" @click="previous">Voltar</button>
-      <button class="" v-if="api.next" @click="next">Próximo</button>
     </div>
     <PokemonInfo
       :texto="poke.name"
@@ -110,6 +122,10 @@ div.container {
   display: inline-block;
   margin-top: 6%;
   width: 45%;
+}
+
+.letraGrande {
+  text-transform: capitalize;
 }
 
 button.poke:hover {
