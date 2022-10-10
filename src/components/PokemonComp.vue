@@ -72,7 +72,7 @@ export default {
   <main>
     <div class="container">
       <h1 class="letraGrande">Lista de Pokémon: {{ pesquisa }} {{ tipo }}</h1>
-      <ul class="lista-poke">
+      <ul class="lista-poke" v-if="tipo != 0">
         <li
           class="pokemao"
           v-for="indice in api.results.filter((a) =>
@@ -84,6 +84,23 @@ export default {
             :pokemonP="indice.pokemon.name"
             @click="
               (atual = indice.pokemon.name),
+                mostrarInfo((url = this.urlP + this.atual))
+            "
+          />
+        </li>
+      </ul>
+      <ul class="lista-poke" v-else-if="tipo == 0">
+        <li
+          class="pokemao"
+          v-for="pokemon in api.results.filter((a) =>
+            a.name.includes(pesquisa)
+          )"
+          :key="pokemon.url"
+        >
+          <PokeBloco
+            :pokemonP="pokemon.name"
+            @click="
+              (atual = pokemon.name),
                 mostrarInfo((url = this.urlP + this.atual))
             "
           />
