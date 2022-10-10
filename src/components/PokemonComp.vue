@@ -27,25 +27,29 @@ export default {
   },
   computed: {
     ...mapStores(useCounterStore),
-    ...mapState(useCounterStore, ["count", "pesquisa"]),
+    ...mapState(useCounterStore, ["count", "pesquisa", "tipo"]),
   },
   watch: {
     pesquisa() {
       const filter = this.api.results.filter((a) =>
-        a.name.includes(this.pesquisa)
+        a.pokemon.name.includes(this.pesquisa)
       );
       if (filter.length === 1) {
-        this.atual = filter[0].name;
+        this.atual = filter[0].pokemon.name;
         this.mostrarInfo();
       }
     },
   },
   methods: {
-    ...mapActions(useCounterStore, ["increment", "pesquisarPoke"]),
-    fetchPokemons(
-      url = "http://pokeapi.co/api/v2/pokemon/?offset=0&limit=1000"
-    ) {
-      axios.get(url).then(({ data }) => (this.api = data));
+    ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
+    fetchPokemons(url = `http://pokeapi.co/api/v2/type/${this.tipo}`) {
+      if (this.tipo != 0) {
+        axios.get(url).then(({ data }) => (this.api.results = data.pokemon));
+      } else {
+        axios
+          .get("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+          .then(({ data }) => (this.api = data));
+      }
     },
     mostrarInfo(url = this.urlP + this.atual) {
       axios
@@ -67,19 +71,19 @@ export default {
 <template>
   <main>
     <div class="container">
-      <h1 class="letraGrande">Lista de Pokémon: {{ pesquisa }}</h1>
+      <h1 class="letraGrande">Lista de Pokémon: {{ pesquisa }} {{ tipo }}</h1>
       <ul class="lista-poke">
         <li
           class="pokemao"
-          v-for="pokemon in api.results.filter((a) =>
-            a.name.includes(pesquisa)
+          v-for="indice in api.results.filter((a) =>
+            a.pokemon.name.includes(pesquisa)
           )"
-          :key="pokemon.url"
+          :key="indice.pokemon.url"
         >
           <PokeBloco
-            :pokemonP="pokemon"
+            :pokemonP="indice.pokemon.name"
             @click="
-              (atual = pokemon.name),
+              (atual = indice.pokemon.name),
                 mostrarInfo((url = this.urlP + this.atual))
             "
           />

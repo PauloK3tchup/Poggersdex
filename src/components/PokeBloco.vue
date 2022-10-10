@@ -12,7 +12,7 @@ export default {
     this.fetchFoto();
   },
   methods: {
-    fetchFoto(url = this.pokemonP.url) {
+    fetchFoto(url = "http://pokeapi.co/api/v2/pokemon/" + this.pokemonP) {
       axios
         .get(url)
         .then(({ data }) => (this.sprite = data.sprites)((this.id = data.id)));
@@ -23,7 +23,7 @@ export default {
 
 <template>
   <button class="poke">
-    <p>{{ id }}.{{ pokemonP.name }}</p>
+    <p>{{ id }}.{{ pokemonP }}</p>
     <img :src="sprite.front_default" />
   </button>
 </template>
