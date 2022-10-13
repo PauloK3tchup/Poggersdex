@@ -1,7 +1,15 @@
+<script setup>
+import Preloader from "../components/Preloader.vue";
+</script>
 <template>
-  <div class="about">
-    <h1>Welcome to the owl house</h1>
-  </div>
+  <main>
+    <div class="loading">
+      <Preloader />
+    </div>
+  </main>
 </template>
-
-<style></style>
+<style scoped>
+.loading {
+  top: 200px;
+}
+</style>

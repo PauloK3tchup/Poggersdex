@@ -31,13 +31,26 @@ export default {
   },
   watch: {
     pesquisa() {
-      const filter = this.api.results.filter((a) =>
-        a.pokemon.name.includes(this.pesquisa)
-      );
-      if (filter.length === 1) {
-        this.atual = filter[0].pokemon.name;
-        this.mostrarInfo();
+      if (this.tipo != 0) {
+        const filter = this.api.results.filter((a) =>
+          a.pokemon.name.includes(this.pesquisa)
+        );
+        if (filter.length === 1) {
+          this.atual = filter[0].pokemon.name;
+          this.mostrarInfo();
+        }
+      } else {
+        const filter = this.api.results.filter((a) =>
+          a.name.includes(this.pesquisa)
+        );
+        if (filter.length === 1) {
+          this.atual = filter[0].name;
+          this.mostrarInfo();
+        }
       }
+    },
+    tipo() {
+      this.fetchPokemons();
     },
   },
   methods: {
@@ -47,7 +60,7 @@ export default {
         axios.get(url).then(({ data }) => (this.api.results = data.pokemon));
       } else {
         axios
-          .get("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+          .get("https://pokeapi.co/api/v2/pokemon?limit=904&offset=0")
           .then(({ data }) => (this.api = data));
       }
     },

@@ -61,10 +61,13 @@ export default {
       </div>
       <div class="dropdown">
         <select v-model="novo_tipo" @click="mudarTipo(novo_tipo)">
+          <option value="0" id="opcao" selected>Nenhum</option>
           <option
             v-for="tipo in tipoLista"
             :key="tipo.nome"
             :value="tipo.valor"
+            :class="tipo.nome.toLowerCase()"
+            id="opcao"
           >
             {{ tipo.nome }}
           </option>
@@ -138,5 +141,95 @@ a.botão:hover {
 .vitinho {
   height: 40px;
   float: left;
+}
+/* tipos */
+
+option {
+  padding: 3px;
+  transition: 0.25s;
+}
+
+option:hover {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.grama {
+  background-color: #008000;
+  color: white;
+}
+
+.veneno {
+  background-color: rgb(92, 0, 128);
+  color: white;
+}
+
+.água {
+  background-color: #0059ff;
+  color: white;
+}
+
+.normal {
+  background-color: #2c2c2c;
+  color: white;
+}
+
+.elétrico {
+  background-color: #e5ff00;
+  color: rgb(0, 0, 0);
+}
+
+.fogo {
+  background-color: #ff5100;
+  color: white;
+}
+.voador {
+  background-color: #bdbdbd;
+  color: black;
+}
+.terra {
+  background-color: #521e00;
+  color: white;
+  margin: 2px;
+}
+.pedra {
+  background-color: #131313;
+  color: white;
+}
+
+.inseto {
+  background-color: #003a00;
+  color: white;
+}
+.fada {
+  background-color: #f500b8;
+  color: white;
+}
+.psíquico {
+  background-color: #530045;
+  color: white;
+}
+.lutador {
+  background-color: #790000;
+  color: white;
+}
+.gelo {
+  background-color: #00f7ff;
+  color: rgb(0, 0, 0);
+}
+.sombrio {
+  background-color: #000000;
+  color: white;
+}
+.fantasma {
+  background-color: #260057;
+  color: white;
+}
+.aço {
+  background-color: #a8a8a8;
+  color: rgb(0, 0, 0);
+}
+.dragão {
+  background-color: #942f00;
+  color: white;
 }
 </style>
