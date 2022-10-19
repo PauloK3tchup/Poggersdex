@@ -19,11 +19,13 @@ export default {
       habilidades: {},
       formas: {},
       stats: {},
+      gen: {},
     };
   },
   created() {
     this.fetchPokemons();
     this.mostrarInfo();
+    this.fetchGen();
   },
   computed: {
     ...mapStores(useCounterStore),
@@ -52,9 +54,15 @@ export default {
     tipo() {
       this.fetchPokemons();
     },
+    atual() {
+      this.fetchGen();
+    },
   },
   methods: {
     ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
+    fetchGen(url = "https://pokeapi.co/api/v2/pokemon-species/" + this.atual) {
+      axios.get(url).then(({ data }) => (this.gen = data.generation.name));
+    },
     fetchPokemons(url = `http://pokeapi.co/api/v2/type/${this.tipo}`) {
       if (this.tipo != 0) {
         axios.get(url).then(({ data }) => (this.api.results = data.pokemon));
@@ -84,7 +92,7 @@ export default {
 <template>
   <main>
     <div class="container">
-      <h1 class="letraGrande">Lista de Pokémon: {{ pesquisa }} {{ tipo }}</h1>
+      <h1 class="letraGrande">Lista de Pokémon: {{ pesquisa }}</h1>
       <ul class="lista-poke" v-if="tipo != 0">
         <li
           class="pokemao"
@@ -129,6 +137,7 @@ export default {
       :formas="formas"
       :tamanho="poke.height"
       :stats="stats"
+      :geração="gen"
     />
     <h2>Este projeto foi feito por Paulo César & Gabriel Domingos</h2>
   </main>
@@ -136,20 +145,6 @@ export default {
 <style>
 ul li.pokemao {
   display: inline-block;
-}
-
-button.poke {
-  width: 115px;
-  height: 115px;
-  border-radius: 12px;
-  margin: 5px;
-  background-color: #20e8a9;
-  color: rgb(0, 0, 0);
-  font-size: 15px;
-  transition: 0.1s;
-  text-transform: capitalize;
-  cursor: pointer;
-  border: solid 1px black;
 }
 
 div.container {
@@ -160,25 +155,6 @@ div.container {
 
 .letraGrande {
   text-transform: capitalize;
-}
-
-button.poke:hover {
-  transform: scale(1.3);
-  background: linear-gradient(180deg, red 50%, white 50%);
-  border: solid 3px black;
-  color: rgb(255, 255, 255);
-  font-weight: 1000;
-  -webkit-text-stroke: 1px rgb(0, 0, 0);
-  z-index: 4;
-}
-
-button.poke:active {
-  transform: scale(1);
-  background: linear-gradient(0deg, red 50%, white 50%);
-  border: solid 3px black;
-  color: rgb(255, 255, 255);
-  font-weight: 1000;
-  -webkit-text-stroke: 1px rgb(0, 0, 0);
 }
 
 .pesquisarInput {

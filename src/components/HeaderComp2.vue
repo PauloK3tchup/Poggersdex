@@ -89,7 +89,7 @@ div.dropdown {
 }
 
 div.dropdown select {
-  padding: 10px;
+  padding: 15px;
   border-radius: 12px;
 }
 
@@ -145,7 +145,6 @@ a.botão:hover {
 /* tipos */
 
 option {
-  padding: 3px;
   transition: 0.25s;
 }
 

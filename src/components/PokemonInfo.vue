@@ -9,6 +9,7 @@ export default {
     "formas",
     "tamanho",
     "stats",
+    "geração",
   ],
 };
 </script>
@@ -16,6 +17,7 @@ export default {
   <div class="informa">
     <h1 class="nomeDoPokemon">{{ texto }}</h1>
     <p>{{ id }}</p>
+    <p>{{ geração }}</p>
     <div class="tipo">
       <h2>Tipos:</h2>
       <div v-for="(value, index) in tipo" :key="'value' + index">
