@@ -59,8 +59,9 @@ export default {
           Pesquisar
         </button> -->
       </div>
+      <label for="tipos">Tipos:</label>
       <div class="dropdown">
-        <select v-model="novo_tipo" @click="mudarTipo(novo_tipo)">
+        <select name="tipos" v-model="novo_tipo" @click="mudarTipo(novo_tipo)">
           <option value="0" id="opcao" selected>Nenhum</option>
           <option
             v-for="tipo in tipoLista"
@@ -69,7 +70,7 @@ export default {
             :class="tipo.nome.toLowerCase()"
             id="opcao"
           >
-            {{ tipo.nome }}
+            <h3 class="op">{{ tipo.nome }}</h3>
           </option>
         </select>
       </div>
@@ -83,6 +84,9 @@ export default {
 </template>
 
 <style scoped>
+label {
+  font-size: 20px;
+}
 div.dropdown {
   float: right;
   margin: 0 10px 0 10px;
@@ -142,16 +146,8 @@ a.botão:hover {
   height: 40px;
   float: left;
 }
+
 /* tipos */
-
-option {
-  transition: 0.25s;
-}
-
-option:hover {
-  transform: scale(1.2) rotate(5deg);
-}
-
 .grama {
   background-color: #008000;
   color: white;

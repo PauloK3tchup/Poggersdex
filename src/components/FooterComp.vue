@@ -3,7 +3,10 @@ export default {};
 </script>
 <template>
   <footer>
-    <p>Este projeto foi feito por Paulo César & Gabriel Domingos</p>
+    <p>
+      Este projeto foi feito por Paulo César & Gabriel Domingos utilizando a
+      PokeApi.
+    </p>
   </footer>
 </template>
 
