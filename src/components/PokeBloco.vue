@@ -31,8 +31,8 @@ export default {
 <template>
   <button class="poke">
     <h3 class="nomeDoPoke">{{ id }}.{{ pokemonP }}</h3>
-    <p>{{ gen }}</p>
     <img :src="sprite.front_default" />
+    <p>{{ gen }}</p>
   </button>
 </template>
 <style scoped>
@@ -41,21 +41,36 @@ button.poke {
   height: 150px;
   border-radius: 300px;
   margin: 5px;
-  background: linear-gradient(180deg, red 50%, white 50%);
+  background: linear-gradient(
+    180deg,
+    #ff0033 0%,
+    #ff0033 48%,
+    #262122 48%,
+    #262122 52%,
+    #fff 52%,
+    #fff 100%
+  );
   color: rgb(0, 0, 0);
   font-size: 15px;
   transition: 0.1s;
   text-transform: capitalize;
   cursor: pointer;
-  border: solid 3px black;
+  border: solid 5px black;
 }
 
 button.poke:hover {
   transform: scale(1.5);
   font-size: 10px;
-  background: linear-gradient(180deg, red 30%, black 30%, white 30%);
-  background-size: 400px 400px;
-  border: solid 3px black;
+  background: linear-gradient(
+    180deg,
+    #ff0033 0%,
+    #ff0033 22%,
+    #262122 0%,
+    #262122 80%,
+    #fff 52%,
+    #fff 100%
+  );
+  border: solid 4px black;
   color: rgb(255, 255, 255);
   font-weight: 1000;
   z-index: 4;
@@ -64,7 +79,15 @@ button.poke:hover {
 
 button.poke:active {
   transform: scale(1);
-  background: linear-gradient(0deg, red 50%, white 50%);
+  background: linear-gradient(
+    180deg,
+    #ff0033 0%,
+    #ff0033 48%,
+    #262122 48%,
+    #262122 52%,
+    #fff 52%,
+    #fff 100%
+  );
   border: solid 3px black;
   color: rgb(255, 255, 255);
   font-weight: 1000;
@@ -77,5 +100,6 @@ img {
 
 .poke:hover img {
   transform: scale(150);
+  z-index: 4;
 }
 </style>

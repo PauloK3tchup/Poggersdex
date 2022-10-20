@@ -1,8 +1,9 @@
 <script>
 import { RouterView } from "vue-router";
 import HeaderComp2 from "./components/HeaderComp2.vue";
+import FooterComp from "./components/FooterComp.vue";
 export default {
-  components: { RouterView, HeaderComp2 },
+  components: { RouterView, HeaderComp2, FooterComp },
 };
 </script>
 
@@ -13,12 +14,12 @@ export default {
   <main>
     <RouterView />
   </main>
+  <FooterComp />
 </template>
 
 <style>
 @import "../src/assets/base.css";
 @import "../src/assets/main.css";
-
 #app {
   max-width: 100%;
   margin: 0 auto;

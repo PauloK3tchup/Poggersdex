@@ -26,7 +26,7 @@ export default {
         </span>
       </div>
     </div>
-    <img :src="img" alt="wha oshi" />
+    <img :src="img" alt="Foto Indisponível" />
     <div class="bloco">
       <h2>Estatísticas:</h2>
       <div v-for="(value, index) in stats" :key="'value' + index">

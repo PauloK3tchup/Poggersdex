@@ -68,7 +68,7 @@ export default {
         axios.get(url).then(({ data }) => (this.api.results = data.pokemon));
       } else {
         axios
-          .get("https://pokeapi.co/api/v2/pokemon?limit=904&offset=0")
+          .get("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0")
           .then(({ data }) => (this.api = data));
       }
     },
@@ -139,7 +139,6 @@ export default {
       :stats="stats"
       :geração="gen"
     />
-    <h2>Este projeto foi feito por Paulo César & Gabriel Domingos</h2>
   </main>
 </template>
 <style>
@@ -150,6 +149,7 @@ ul li.pokemao {
 div.container {
   display: inline-block;
   margin-top: 6%;
+  margin-bottom: 6%;
   width: 45%;
 }
 
