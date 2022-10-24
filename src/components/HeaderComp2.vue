@@ -62,7 +62,7 @@ export default {
       <label for="tipos">Tipos:</label>
       <div class="dropdown">
         <select name="tipos" v-model="novo_tipo" @click="mudarTipo(novo_tipo)">
-          <option value="0" id="opcao" selected>Nenhum</option>
+          <option value="0" id="opcao">Nenhum</option>
           <option
             v-for="tipo in tipoLista"
             :key="tipo.nome"

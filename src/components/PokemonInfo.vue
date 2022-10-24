@@ -26,7 +26,15 @@ export default {
         </span>
       </div>
     </div>
-    <img :src="img" alt="Foto Indisponível" />
+    <div class="fotos">
+      <img class="normalers" :src="img.front_default" alt="Foto Indisponível" />
+      <img
+        title="Passe o mouse por cima para mostrar shiny"
+        class="shiny"
+        :src="img.front_shiny"
+        alt="Foto Indisponível"
+      />
+    </div>
     <div class="bloco">
       <h2>Estatísticas:</h2>
       <div v-for="(value, index) in stats" :key="'value' + index">
@@ -44,7 +52,7 @@ export default {
         </span>
       </div>
     </div>
-    <div class="bloco">
+    <div class="bloco"></div>
       <h2>Formas:</h2>
       <div v-for="(value, index) in formas" :key="'value' + index">
         <span class="info">
@@ -80,6 +88,14 @@ div.informa {
   right: 1%;
 }
 
+.fotos:hover .normalers {
+  display: none;
+}
+
+.fotos:hover .shiny {
+  display: initial;
+}
+
 .info {
   font-weight: 900;
   text-transform: capitalize;
@@ -90,10 +106,17 @@ h1 {
   -webkit-text-stroke: 2px black;
 }
 
-div.informa img {
+div.informa img.normalers {
   width: 200px;
   height: auto;
   float: left;
+}
+
+div.informa img.shiny {
+  width: 200px;
+  height: auto;
+  float: left;
+  display: none;
 }
 
 .tipo {

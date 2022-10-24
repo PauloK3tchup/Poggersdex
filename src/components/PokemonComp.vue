@@ -132,7 +132,7 @@ export default {
       :texto="poke.name"
       :id="poke.id"
       :habilidade="habilidades"
-      :img="sprite.front_default"
+      :img="sprite"
       :tipo="tipos"
       :formas="formas"
       :tamanho="poke.height"
