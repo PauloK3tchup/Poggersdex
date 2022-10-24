@@ -52,7 +52,7 @@ export default {
         </span>
       </div>
     </div>
-    <div class="bloco"></div>
+    <div class="bloco">
       <h2>Formas:</h2>
       <div v-for="(value, index) in formas" :key="'value' + index">
         <span class="info">
