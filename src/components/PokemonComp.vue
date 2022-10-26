@@ -20,6 +20,9 @@ export default {
       formas: {},
       stats: {},
       gen: {},
+      shape: {},
+      taxa: {},
+      evolution: {},
     };
   },
   created() {
@@ -61,7 +64,15 @@ export default {
   methods: {
     ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
     fetchGen(url = "https://pokeapi.co/api/v2/pokemon-species/" + this.atual) {
-      axios.get(url).then(({ data }) => (this.gen = data.generation.name));
+      axios
+        .get(url)
+        .then(
+          ({ data }) => (
+            (this.gen = data.generation.name),
+            (this.taxa = data.capture_rate),
+            (this.evolution = data.evolution_chain.url)
+          )
+        );
     },
     fetchPokemons(url = `http://pokeapi.co/api/v2/type/${this.tipo}`) {
       if (this.tipo != 0) {
@@ -138,6 +149,8 @@ export default {
       :tamanho="poke.height"
       :stats="stats"
       :geração="gen"
+      :rate="taxa"
+      :evolucoes="evolution"
     />
   </main>
 </template>
