@@ -1,11 +1,14 @@
 <script>
+//Coisas importadas de fora
 import { useCounterStore } from "../stores/counter";
 import { mapStores, mapActions, mapState } from "pinia";
 export default {
   data() {
     return {
       pesquisa_alteravel: "bulbasaur",
+      //Variáveis do dropdown tipos
       tipoLista: [
+        { nome: "Nenhum", valor: "0" },
         { nome: "Normal", valor: "1" },
         { nome: "Lutador", valor: "2" },
         { nome: "Voador", valor: "3" },
@@ -29,10 +32,12 @@ export default {
       ],
     };
   },
+  //Pinia
   computed: {
     ...mapStores(useCounterStore),
     ...mapState(useCounterStore, ["count", "pesquisa", "tipo"]),
   },
+  //Pinia 2: O retorno
   methods: {
     ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
   },
@@ -41,12 +46,14 @@ export default {
 <template>
   <header class="menu-superior">
     <div class="menu-esquerdo">
+      <!-- Logo do site -->
       <span
         ><RouterLink to="/" class="botão">
           <img class="vitinho" src="../assets/Victini_Icon.png" alt="vitinho" />
           PoggersDex
         </RouterLink></span
       >
+      <!-- Barra de pesquisa -->
       <div class="pesquisa">
         <input
           class="pesquisarInput"
@@ -55,14 +62,11 @@ export default {
           v-model="nova_pesquisa"
           @keyup="pesquisarPoke(nova_pesquisa)"
         />
-        <!-- <button class="pesquisarBotao" @click="pesquisarPoke(nova_pesquisa)">
-          Pesquisar
-        </button> -->
       </div>
+      <!-- Dropdown dos tipos -->
       <label for="tipos">Tipos:</label>
       <div class="dropdown">
         <select name="tipos" v-model="novo_tipo" @click="mudarTipo(novo_tipo)">
-          <option value="0" id="opcao">Nenhum</option>
           <option
             v-for="tipo in tipoLista"
             :key="tipo.nome"
@@ -70,7 +74,7 @@ export default {
             :class="tipo.nome.toLowerCase()"
             id="opcao"
           >
-            <h3 class="op">{{ tipo.nome }}</h3>
+            {{ tipo.nome }}
           </option>
         </select>
       </div>
@@ -79,11 +83,13 @@ export default {
       <span>
         <RouterLink to="/" class="botão"> Sair </RouterLink>
       </span>
-    </div> -->
+    </div> (Não sendo utilizado no momento) -->
   </header>
 </template>
 
 <style scoped>
+/* Dropdown */
+
 label {
   font-size: 20px;
 }
@@ -97,13 +103,33 @@ div.dropdown select {
   border-radius: 12px;
 }
 
+/* Barra de pesquisa */
+
 div.pesquisa {
   float: right;
+}
+
+.pesquisarInput {
+  height: 40px;
+  padding: 5px;
+  border-radius: 10px;
+  border: solid 2px black;
+}
+
+.pesquisarInput:hover {
+  background-color: antiquewhite;
+}
+
+.pesquisarInput:active {
+  border: solid 3px black;
 }
 
 div.pesquisa input {
   width: 350px;
 }
+
+/* Coisas gerais do header */
+
 header.menu-superior {
   display: flex;
   align-items: center;
@@ -130,6 +156,8 @@ header span {
   font-weight: bold;
 }
 
+/* Logo */
+
 a.botão {
   text-decoration: none;
   color: white;
@@ -147,7 +175,7 @@ a.botão:hover {
   float: left;
 }
 
-/* tipos */
+/* Tipos */
 .grama {
   background-color: #008000;
   color: white;

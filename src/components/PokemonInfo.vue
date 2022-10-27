@@ -1,8 +1,10 @@
 <script>
-import axios from "axios";
+// import axios from "axios"; (não sendo utilizado no momento)
 export default {
   data() {
-    return { evo1: {} };
+    return {
+      evo1: {},
+    };
   },
   props: [
     "habilidade",
@@ -16,18 +18,48 @@ export default {
     "geração",
     "rate",
     "evolucoes",
+    "e_mitico",
+    "e_lendario",
   ],
-  created() {},
-  watch: {},
-  methods: {},
+  created() {
+    this.mudarId();
+  },
+  watch: {
+    e_lendario() {
+      this.mudarId();
+    },
+    e_mitico() {
+      this.mudarId();
+    },
+  },
+  methods: {
+    mudarId() {
+      if (this.e_lendario == false && this.e_mitico == true) {
+        document.getElementById("normal").id = "mitico";
+      } else {
+        if (this.e_lendario == true && this.e_mitico == false) {
+          document.getElementById("normal").id = "lendario";
+        } else {
+          if (this.e_lendario == false && this.e_mitico == false) {
+            document.getElementById("normal").id = "normal";
+          }
+        }
+      }
+    },
+  },
 };
 </script>
 <template>
   <div class="tudo">
-    <div class="informa">
+    <!-- Caixa de informações superior -->
+    <div id="normal" class="informa">
+      <!--Nome do pokémon-->
       <h1 class="nomeDoPokemon">{{ texto }}</h1>
+      <!--ID do pokémon-->
       <p>{{ id }}</p>
+      <!-- Geração do pokémon -->
       <p>{{ geração }}</p>
+      <!-- Tipos do pokémon -->
       <div class="tipo">
         <h2>Tipos:</h2>
         <div v-for="(value, index) in tipo" :key="'value' + index">
@@ -36,6 +68,7 @@ export default {
           </span>
         </div>
       </div>
+      <!-- Sprites do pokémon -->
       <div class="fotos">
         <img
           class="normalers"
@@ -49,6 +82,7 @@ export default {
           alt="Foto Indisponível"
         />
       </div>
+      <!-- Informações principais do pokémon -->
       <div class="bloco">
         <h2>Estatísticas:</h2>
         <div v-for="(value, index) in stats" :key="'value' + index">
@@ -79,7 +113,9 @@ export default {
         <span class="info"> {{ tamanho / 10 }}m </span>
       </div>
     </div>
-    <div class="informa2">
+    <!-- Caixa de informações inferior -->
+    <div id="normal" class="informa2">
+      <!-- Taxa de captura do pokémon -->
       <h3>Taxa de captura: {{ rate }}</h3>
     </div>
   </div>
@@ -93,8 +129,8 @@ export default {
 div.informa {
   background-color: crimson;
   color: white;
-  width: 50%;
-  height: fit-content;
+  width: 53%;
+  height: 45%;
   padding: 10px;
   margin: 2%;
   border-radius: 10px;
@@ -104,13 +140,14 @@ div.informa {
   position: fixed;
   top: 7%;
   right: 1%;
+  overflow-y: scroll;
 }
 
 div.informa2 {
   background-color: crimson;
   color: white;
-  width: 50%;
-  height: fit-content;
+  width: 53%;
+  height: 35%;
   padding: 10px;
   margin: 2%;
   border-radius: 10px;
@@ -118,8 +155,9 @@ div.informa2 {
   float: right;
 
   position: fixed;
-  top: 54%;
+  top: 53%;
   right: 1%;
+  overflow-y: scroll;
 }
 
 .fotos:hover .normalers {

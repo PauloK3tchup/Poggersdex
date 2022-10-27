@@ -1,11 +1,14 @@
 <script>
+//Coisas importadas de fora
 import axios from "axios";
 import PokemonInfo from "../components/PokemonInfo.vue";
 import PokeBloco from "./PokeBloco.vue";
 import { useCounterStore } from "../stores/counter";
 import { mapStores, mapActions, mapState } from "pinia";
+
 export default {
   components: { PokemonInfo, PokeBloco },
+  //Variáveis
   data() {
     return {
       api: {
@@ -23,19 +26,25 @@ export default {
       shape: {},
       taxa: {},
       evolution: {},
+      lendario: {},
+      mitico: {},
     };
   },
+  //Funções que começam sendo executadas
   created() {
-    this.fetchPokemons();
+    this.fetchPokemon();
     this.mostrarInfo();
     this.fetchGen();
   },
+  //Pinia
   computed: {
     ...mapStores(useCounterStore),
     ...mapState(useCounterStore, ["count", "pesquisa", "tipo"]),
   },
+  //Variáveis monitoradas
   watch: {
     pesquisa() {
+      //Pesquisa quando tem 1 tipo selecionado
       if (this.tipo != 0) {
         const filter = this.api.results.filter((a) =>
           a.pokemon.name.includes(this.pesquisa)
@@ -44,6 +53,7 @@ export default {
           this.atual = filter[0].pokemon.name;
           this.mostrarInfo();
         }
+        //Pesquisa quando nenhum tipo está selecionado
       } else {
         const filter = this.api.results.filter((a) =>
           a.name.includes(this.pesquisa)
@@ -54,15 +64,20 @@ export default {
         }
       }
     },
+    //Tipo selecionado
     tipo() {
-      this.fetchPokemons();
+      this.fetchPokemon();
     },
+    //Busca pela geração do pokémon
     atual() {
       this.fetchGen();
     },
   },
+  //Funções
   methods: {
+    //Pinia
     ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
+    //Buscar geração e outras informações com base na espécie do pokémon
     fetchGen(url = "https://pokeapi.co/api/v2/pokemon-species/" + this.atual) {
       axios
         .get(url)
@@ -70,19 +85,24 @@ export default {
           ({ data }) => (
             (this.gen = data.generation.name),
             (this.taxa = data.capture_rate),
-            (this.evolution = data.evolution_chain.url)
+            (this.evolution = data.evolution_chain.url),
+            (this.lendario = data.is_legendary),
+            (this.mitico = data.is_mythical)
           )
         );
     },
-    fetchPokemons(url = `http://pokeapi.co/api/v2/type/${this.tipo}`) {
+    //Buscar pokémon com 1 tipo selecionado
+    fetchPokemon(url = `http://pokeapi.co/api/v2/type/${this.tipo}`) {
       if (this.tipo != 0) {
         axios.get(url).then(({ data }) => (this.api.results = data.pokemon));
       } else {
+        //Buscar todos os pokémon
         axios
           .get("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0")
           .then(({ data }) => (this.api = data));
       }
     },
+    //Buscar informações do pokémon selecionado
     mostrarInfo(url = this.urlP + this.atual) {
       axios
         .get(url)
@@ -104,6 +124,7 @@ export default {
   <main>
     <div class="container">
       <h1 class="letraGrande">Lista de Pokémon: {{ pesquisa }}</h1>
+      <!-- Lista de pokémon com 1 tipo selecionado -->
       <ul class="lista-poke" v-if="tipo != 0">
         <li
           class="pokemao"
@@ -121,6 +142,7 @@ export default {
           />
         </li>
       </ul>
+      <!-- Lista de pokémon com nenhum tipo selecionado -->
       <ul class="lista-poke" v-else-if="tipo == 0">
         <li
           class="pokemao"
@@ -139,6 +161,7 @@ export default {
         </li>
       </ul>
     </div>
+    <!-- Informações do pokémon sendo exportadas para o outro componente -->
     <PokemonInfo
       :texto="poke.name"
       :id="poke.id"
@@ -151,6 +174,8 @@ export default {
       :geração="gen"
       :rate="taxa"
       :evolucoes="evolution"
+      :e_lendario="lendario"
+      :e_mitico="mitico"
     />
   </main>
 </template>
@@ -168,49 +193,5 @@ div.container {
 
 .letraGrande {
   text-transform: capitalize;
-}
-
-.pesquisarInput {
-  height: 40px;
-  padding: 5px;
-  border-radius: 10px;
-  border: solid 2px black;
-}
-
-.pesquisarInput:hover {
-  background-color: antiquewhite;
-}
-
-.pesquisarInput:active {
-  border: solid 3px black;
-}
-
-button.pesquisarBotao {
-  width: auto;
-  height: 50px;
-  border-radius: 12px;
-  margin: 5px;
-  font-size: 15px;
-  transition: 0.1s;
-  text-transform: capitalize;
-  cursor: pointer;
-  border: solid 1px black;
-  background: linear-gradient(
-    180deg,
-    rgb(255, 187, 0) 50%,
-    rgb(26, 26, 26) 50%
-  );
-  color: rgb(255, 255, 255);
-  font-weight: 1000;
-  -webkit-text-stroke: 1px rgb(0, 0, 0);
-}
-
-button.pesquisarBotao:hover {
-  transform: scale(1.3);
-}
-
-button.pesquisarBotao:active {
-  transform: scale(1);
-  background: linear-gradient(0deg, rgb(255, 187, 0) 50%, rgb(26, 26, 26) 50%);
 }
 </style>
