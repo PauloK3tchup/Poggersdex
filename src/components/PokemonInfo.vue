@@ -20,6 +20,9 @@ export default {
     "evolucoes",
     "e_mitico",
     "e_lendario",
+    "felicidade",
+    "cor",
+    "formato",
   ],
   created() {
     this.mudarId();
@@ -35,13 +38,13 @@ export default {
   methods: {
     mudarId() {
       if (this.e_lendario == false && this.e_mitico == true) {
-        document.getElementById("normal").id = "mitico";
+        document.getElementById("informa").className = "mitico";
       } else {
         if (this.e_lendario == true && this.e_mitico == false) {
-          document.getElementById("normal").id = "lendario";
+          document.getElementById("informa").className = "lendario";
         } else {
           if (this.e_lendario == false && this.e_mitico == false) {
-            document.getElementById("normal").id = "normal";
+            document.getElementById("informa").className = "normal";
           }
         }
       }
@@ -52,9 +55,18 @@ export default {
 <template>
   <div class="tudo">
     <!-- Caixa de informações superior -->
-    <div id="normal" class="informa">
+    <div id="informa" class="">
       <!--Nome do pokémon-->
       <h1 class="nomeDoPokemon">{{ texto }}</h1>
+      <span v-if="e_lendario == true" id="tipoTexto" class="tipo_lendario"
+        >Lendário</span
+      >
+      <span v-if="texto == 'amoonguss'" id="tipoTexto" class="tipo_lendario"
+        >Sus</span
+      >
+      <span v-if="e_mitico == true" id="tipoTexto" class="tipo_mitico"
+        >Mítico</span
+      >
       <!--ID do pokémon-->
       <p>{{ id }}</p>
       <!-- Geração do pokémon -->
@@ -73,12 +85,6 @@ export default {
         <img
           class="normalers"
           :src="img.front_default"
-          alt="Foto Indisponível"
-        />
-        <img
-          title="Passe o mouse por cima para mostrar shiny"
-          class="shiny"
-          :src="img.front_shiny"
           alt="Foto Indisponível"
         />
       </div>
@@ -114,9 +120,14 @@ export default {
       </div>
     </div>
     <!-- Caixa de informações inferior -->
-    <div id="normal" class="informa2">
+    <div id="informa2" class="">
+      <h2>Shiny:</h2>
+      <img class="shiny" :src="img.front_shiny" alt="Foto Indisponível" />
       <!-- Taxa de captura do pokémon -->
       <h3>Taxa de captura: {{ rate }}</h3>
+      <h3>Felicidade Base: {{ felicidade }}</h3>
+      <h3>Cor: {{ cor }}</h3>
+      <h3>Formato: {{ formato }}</h3>
     </div>
   </div>
 </template>
@@ -126,7 +137,7 @@ export default {
 .nomeDoPokemon {
   text-transform: capitalize;
 }
-div.informa {
+div#informa {
   background-color: crimson;
   color: white;
   width: 53%;
@@ -143,7 +154,62 @@ div.informa {
   overflow-y: scroll;
 }
 
-div.informa2 {
+div.mitico {
+  background: linear-gradient(
+    45deg,
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    violet,
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194),
+    rgb(194, 15, 194)
+  );
+  background-size: 300%;
+  animation: border 4s linear infinite;
+}
+
+div.lendario {
+  background: linear-gradient(
+    45deg,
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    yellow,
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20),
+    rgb(220, 150, 20)
+  );
+  background-size: 300%;
+  animation: border 4s linear infinite;
+}
+
+@keyframes border {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 300%;
+  }
+}
+
+div#informa2 {
   background-color: crimson;
   color: white;
   width: 53%;
@@ -160,13 +226,13 @@ div.informa2 {
   overflow-y: scroll;
 }
 
-.fotos:hover .normalers {
+/* .fotos:hover .normalers {
   display: none;
 }
 
 .fotos:hover .shiny {
   display: initial;
-}
+} */
 
 .info {
   font-weight: 900;
@@ -178,17 +244,16 @@ h1 {
   -webkit-text-stroke: 2px black;
 }
 
-div.informa img.normalers {
+div#informa img.normalers {
   width: 200px;
   height: auto;
   float: left;
 }
 
-div.informa img.shiny {
+div#informa2 img.shiny {
   width: 200px;
   height: auto;
   float: left;
-  display: none;
 }
 
 .tipo {

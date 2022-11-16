@@ -17,7 +17,9 @@ export default {
     fetchFoto(url = "http://pokeapi.co/api/v2/pokemon/" + this.pokemonP) {
       axios
         .get(url)
-        .then(({ data }) => (this.sprite = data.sprites)((this.id = data.id)));
+        .then(
+          ({ data }) => ((this.sprite = data.sprites), (this.id = data.id))
+        );
     },
     fetchGen(
       url = "https://pokeapi.co/api/v2/pokemon-species/" + this.pokemonP

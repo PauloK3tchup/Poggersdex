@@ -28,6 +28,8 @@ export default {
       evolution: {},
       lendario: {},
       mitico: {},
+      felicidade_base: {},
+      cor_do_bixo: {},
     };
   },
   //Funções que começam sendo executadas
@@ -87,7 +89,10 @@ export default {
             (this.taxa = data.capture_rate),
             (this.evolution = data.evolution_chain.url),
             (this.lendario = data.is_legendary),
-            (this.mitico = data.is_mythical)
+            (this.mitico = data.is_mythical),
+            (this.felicidade_base = data.base_happiness),
+            (this.cor_do_bixo = data.color.name),
+            (this.shape = data.shape.name)
           )
         );
     },
@@ -176,6 +181,9 @@ export default {
       :evolucoes="evolution"
       :e_lendario="lendario"
       :e_mitico="mitico"
+      :felicidade="felicidade_base"
+      :cor="cor_do_bixo"
+      :formato="shape"
     />
   </main>
 </template>
