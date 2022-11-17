@@ -22,21 +22,12 @@ export default {
       habilidades: {},
       formas: {},
       stats: {},
-      gen: {},
-      shape: {},
-      taxa: {},
-      evolution: {},
-      lendario: {},
-      mitico: {},
-      felicidade_base: {},
-      cor_do_bixo: {},
     };
   },
   //Funções que começam sendo executadas
   created() {
     this.fetchPokemon();
     this.mostrarInfo();
-    this.fetchGen();
   },
   //Pinia
   computed: {
@@ -70,32 +61,11 @@ export default {
     tipo() {
       this.fetchPokemon();
     },
-    //Busca pela geração do pokémon
-    atual() {
-      this.fetchGen();
-    },
   },
   //Funções
   methods: {
     //Pinia
     ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
-    //Buscar geração e outras informações com base na espécie do pokémon
-    fetchGen(url = "https://pokeapi.co/api/v2/pokemon-species/" + this.atual) {
-      axios
-        .get(url)
-        .then(
-          ({ data }) => (
-            (this.gen = data.generation.name),
-            (this.taxa = data.capture_rate),
-            (this.evolution = data.evolution_chain.url),
-            (this.lendario = data.is_legendary),
-            (this.mitico = data.is_mythical),
-            (this.felicidade_base = data.base_happiness),
-            (this.cor_do_bixo = data.color.name),
-            (this.shape = data.shape.name)
-          )
-        );
-    },
     //Buscar pokémon com 1 tipo selecionado
     fetchPokemon(url = `http://pokeapi.co/api/v2/type/${this.tipo}`) {
       if (this.tipo != 0) {
@@ -103,7 +73,7 @@ export default {
       } else {
         //Buscar todos os pokémon
         axios
-          .get("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0")
+          .get("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
           .then(({ data }) => (this.api = data));
       }
     },
@@ -176,14 +146,6 @@ export default {
       :formas="formas"
       :tamanho="poke.height"
       :stats="stats"
-      :geração="gen"
-      :rate="taxa"
-      :evolucoes="evolution"
-      :e_lendario="lendario"
-      :e_mitico="mitico"
-      :felicidade="felicidade_base"
-      :cor="cor_do_bixo"
-      :formato="shape"
     />
   </main>
 </template>

@@ -1,11 +1,6 @@
 <script>
-// import axios from "axios"; (não sendo utilizado no momento)
+import axios from "axios";
 export default {
-  data() {
-    return {
-      evo1: {},
-    };
-  },
   props: [
     "habilidade",
     "img",
@@ -15,35 +10,66 @@ export default {
     "formas",
     "tamanho",
     "stats",
-    "geração",
-    "rate",
-    "evolucoes",
-    "e_mitico",
-    "e_lendario",
-    "felicidade",
-    "cor",
-    "formato",
   ],
+  data() {
+    return {
+      esp_info: {},
+      geracao: {},
+      cor: {},
+      shape: {},
+      habitat: {},
+      evolui_null: {},
+      evolui_de: {},
+      egg_group: {},
+    };
+  },
   created() {
+    this.fetchGen();
     this.mudarId();
   },
   watch: {
-    e_lendario() {
-      this.mudarId();
+    texto() {
+      this.fetchGen();
     },
-    e_mitico() {
+    esp_info() {
       this.mudarId();
     },
   },
   methods: {
+    //Buscar geração e outras informações com base na espécie do pokémon
+    fetchGen(url = "https://pokeapi.co/api/v2/pokemon-species/" + this.texto) {
+      axios
+        .get(url)
+        .then(
+          ({ data }) => (
+            (this.esp_info = data),
+            (this.geracao = data.generation.name),
+            (this.cor = data.color.name),
+            (this.shape = data.shape.name),
+            (this.habitat = data.habitat.name),
+            (this.evolui_null = data.evolves_from_species),
+            (this.evolui_de = this.evolui_null.name),
+            (this.egg_group = this.egg_groups)
+          )
+        );
+    },
     mudarId() {
-      if (this.e_lendario == false && this.e_mitico == true) {
+      if (
+        this.esp_info.is_legendary == false &&
+        this.esp_info.is_mythical == true
+      ) {
         document.getElementById("informa").className = "mitico";
       } else {
-        if (this.e_lendario == true && this.e_mitico == false) {
+        if (
+          this.esp_info.is_legendary == true &&
+          this.esp_info.is_mythical == false
+        ) {
           document.getElementById("informa").className = "lendario";
         } else {
-          if (this.e_lendario == false && this.e_mitico == false) {
+          if (
+            this.esp_info.is_legendary == false &&
+            this.esp_info.is_mythical == false
+          ) {
             document.getElementById("informa").className = "normal";
           }
         }
@@ -58,19 +84,25 @@ export default {
     <div id="informa" class="">
       <!--Nome do pokémon-->
       <h1 class="nomeDoPokemon">{{ texto }}</h1>
-      <span v-if="e_lendario == true" id="tipoTexto" class="tipo_lendario"
+      <span
+        v-if="esp_info.is_legendary == true"
+        id="tipoTexto"
+        class="tipo_lendario"
         >Lendário</span
       >
       <span v-if="texto == 'amoonguss'" id="tipoTexto" class="tipo_lendario"
         >Sus</span
       >
-      <span v-if="e_mitico == true" id="tipoTexto" class="tipo_mitico"
+      <span
+        v-if="esp_info.is_mythical == true"
+        id="tipoTexto"
+        class="tipo_mitico"
         >Mítico</span
       >
       <!--ID do pokémon-->
       <p>{{ id }}</p>
       <!-- Geração do pokémon -->
-      <p>{{ geração }}</p>
+      <p>{{ geracao }}</p>
       <!-- Tipos do pokémon -->
       <div class="tipo">
         <h2>Tipos:</h2>
@@ -123,11 +155,35 @@ export default {
     <div id="informa2" class="">
       <h2>Shiny:</h2>
       <img class="shiny" :src="img.front_shiny" alt="Foto Indisponível" />
-      <!-- Taxa de captura do pokémon -->
-      <h3>Taxa de captura: {{ rate }}</h3>
-      <h3>Felicidade Base: {{ felicidade }}</h3>
-      <h3>Cor: {{ cor }}</h3>
-      <h3>Formato: {{ formato }}</h3>
+      <!-- Outras informações do pokémon -->
+      <div class="bloco">
+        <h2>Cor:</h2>
+        <span class="info">{{ cor }}</span>
+        <h2>Formato:</h2>
+        <span class="info">{{ shape }}</span>
+        <h2>Habitat:</h2>
+        <span class="info">{{ habitat }}</span>
+      </div>
+      <div class="bloco">
+        <h2>Taxa de captura:</h2>
+        <span class="info">{{ esp_info.capture_rate }}</span>
+      </div>
+      <div class="bloco">
+        <h2>Felicidade Base:</h2>
+        <span class="info">{{ esp_info.base_happiness }}</span>
+      </div>
+      <div v-if="evolui_null != null" class="bloco">
+        <h2>Evolui de:</h2>
+        <span class="info">{{ evolui_de }}</span>
+      </div>
+      <div class="bloco">
+        <h2>Grupo de ovos:</h2>
+        <div v-for="(value, index) in egg_group" :key="'value' + index">
+          <span class="info">
+            {{ value.name }}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
