@@ -47,7 +47,7 @@ export default {
   <header class="menu-superior">
     <div class="menu-esquerdo">
       <!-- Logo do site -->
-      <span
+      <span class="titulo"
         ><RouterLink to="/" class="botão">
           <img class="vitinho" src="../assets/Victini_Icon.png" alt="vitinho" />
           PoggersDex
@@ -64,7 +64,7 @@ export default {
         />
       </div>
       <!-- Dropdown dos tipos -->
-      <label for="tipos">Tipos:</label>
+      <!-- <label for="tipos">Tipos:</label>
       <div class="dropdown">
         <select name="tipos" v-model="novo_tipo" @click="mudarTipo(novo_tipo)">
           <option
@@ -77,6 +77,24 @@ export default {
             {{ tipo.nome }}
           </option>
         </select>
+      </div> -->
+      <div class="dropdown">
+        <button class="dropbtn">Tipos</button>
+        <div class="dropdown-content">
+          <span
+            v-for="tipo in tipoLista"
+            :key="tipo.nome"
+            :value="tipo.valor"
+            :class="tipo.nome.toLowerCase()"
+            id="opcao"
+            @click="
+              novo_tipo = tipo.valor;
+              mudarTipo(novo_tipo);
+            "
+          >
+            {{ tipo.nome }}
+          </span>
+        </div>
       </div>
     </div>
     <!-- <div class="menu-direito">
@@ -89,18 +107,71 @@ export default {
 
 <style scoped>
 /* Dropdown */
-
-label {
+.dropbtn {
+  background-color: crimson;
+  font-weight: bolder;
   font-size: 20px;
-}
-div.dropdown {
-  float: right;
-  margin: 0 10px 0 10px;
+  color: white;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 0 15px 0 10px;
+  transition: 0.15s;
 }
 
-div.dropdown select {
-  padding: 15px;
-  border-radius: 12px;
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0);
+  min-width: 160px;
+  width: 450px;
+  z-index: 1;
+  height: fit-content;
+  border-radius: 10px;
+  transition: 0.15s;
+}
+
+/* Links inside the dropdown */
+.dropdown-content span {
+  width: 150px;
+  height: 50px;
+  font-size: 15px;
+  font-weight: bolder;
+  padding: 16px 12px;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.15s;
+  border-radius: 10px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content span:hover {
+  z-index: 5;
+  transform: scale(1.2) rotate(5deg);
+  cursor: pointer;
+}
+
+.dropdown-content span:active {
+  transform: scale(1);
+  filter: brightness(0.5);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: rgb(124, 19, 40);
 }
 
 /* Barra de pesquisa */
@@ -151,7 +222,7 @@ header {
   z-index: 5;
 }
 
-header span {
+header span.titulo {
   padding: 0% 20px;
   font-weight: bold;
 }
@@ -175,7 +246,42 @@ a.botão:hover {
   float: left;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(146, 19, 45);
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(100, 11, 30);
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(75, 8, 22);
+}
+
 /* Tipos */
+.desconhecido {
+  background-color: crimson;
+  color: rgb(255, 255, 255);
+}
+.sombra {
+  background-color: crimson;
+  color: rgb(255, 255, 255);
+}
+.nenhum {
+  background-color: crimson;
+  color: rgb(255, 255, 255);
+}
+
 .grama {
   background-color: #008000;
   color: white;
@@ -212,7 +318,6 @@ a.botão:hover {
 .terra {
   background-color: #521e00;
   color: white;
-  margin: 2px;
 }
 .pedra {
   background-color: #131313;

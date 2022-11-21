@@ -23,6 +23,21 @@ export default {
       egg_group: {},
     };
   },
+  computed: {
+    classObject: function () {
+      return {
+        lendario:
+          this.esp_info.is_legendary == true &&
+          this.esp_info.is_mythical == false,
+        mitico:
+          this.esp_info.is_legendary == false &&
+          this.esp_info.is_mythical == true,
+        normal:
+          this.esp_info.is_legendary == false &&
+          this.esp_info.is_mythical == false,
+      };
+    },
+  },
   created() {
     this.fetchGen();
     this.mudarId();
@@ -48,40 +63,19 @@ export default {
             (this.shape = data.shape.name),
             (this.habitat = data.habitat.name),
             (this.evolui_null = data.evolves_from_species),
-            (this.evolui_de = this.evolui_null.name),
-            (this.egg_group = this.egg_groups)
+            (this.ovos = data.egg_groups),
+            (this.evolui_de = this.evolui_null.name)
           )
         );
     },
-    mudarId() {
-      if (
-        this.esp_info.is_legendary == false &&
-        this.esp_info.is_mythical == true
-      ) {
-        document.getElementById("informa").className = "mitico";
-      } else {
-        if (
-          this.esp_info.is_legendary == true &&
-          this.esp_info.is_mythical == false
-        ) {
-          document.getElementById("informa").className = "lendario";
-        } else {
-          if (
-            this.esp_info.is_legendary == false &&
-            this.esp_info.is_mythical == false
-          ) {
-            document.getElementById("informa").className = "normal";
-          }
-        }
-      }
-    },
+    mudarId() {},
   },
 };
 </script>
 <template>
   <div class="tudo">
     <!-- Caixa de informações superior -->
-    <div id="informa" class="">
+    <div id="informa" v-bind:class="classObject">
       <!--Nome do pokémon-->
       <h1 class="nomeDoPokemon">{{ texto }}</h1>
       <span
@@ -178,7 +172,7 @@ export default {
       </div>
       <div class="bloco">
         <h2>Grupo de ovos:</h2>
-        <div v-for="(value, index) in egg_group" :key="'value' + index">
+        <div v-for="(value, index) in ovos" :key="'value' + index">
           <span class="info">
             {{ value.name }}
           </span>
