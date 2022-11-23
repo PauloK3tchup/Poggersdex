@@ -2,12 +2,13 @@
 //Coisas importadas de fora
 import axios from "axios";
 import PokemonInfo from "../components/PokemonInfo.vue";
+import PokemonInfo2 from "../components/PokemonInfo2.vue";
 import PokeBloco from "./PokeBloco.vue";
 import { useCounterStore } from "../stores/counter";
 import { mapStores, mapActions, mapState } from "pinia";
 
 export default {
-  components: { PokemonInfo, PokeBloco },
+  components: { PokemonInfo, PokemonInfo2, PokeBloco },
   //Variáveis
   data() {
     return {
@@ -73,7 +74,9 @@ export default {
       } else {
         //Buscar todos os pokémon
         axios
-          .get("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+          .get(
+            "https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0"
+          )
           .then(({ data }) => (this.api = data));
       }
     },
@@ -138,6 +141,16 @@ export default {
     </div>
     <!-- Informações do pokémon sendo exportadas para o outro componente -->
     <PokemonInfo
+      :texto="poke.name"
+      :id="poke.id"
+      :habilidade="habilidades"
+      :img="sprite"
+      :tipo="tipos"
+      :formas="formas"
+      :tamanho="poke.height"
+      :stats="stats"
+    />
+    <PokemonInfo2
       :texto="poke.name"
       :id="poke.id"
       :habilidade="habilidades"

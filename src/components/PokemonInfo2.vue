@@ -18,6 +18,8 @@ export default {
       cor: {},
       shape: {},
       habitat: {},
+      urlevo: {},
+      linha_evo: {},
       evolui_null: {},
       evolui_de: {},
       egg_group: {},
@@ -42,6 +44,7 @@ export default {
   created() {
     this.fetchEspInfo();
     this.mudarAlguns();
+    this.linhaEvo();
   },
   watch: {
     texto() {
@@ -49,6 +52,7 @@ export default {
     },
     esp_info() {
       this.mudarAlguns();
+      this.linhaEvo();
     },
   },
   methods: {
@@ -67,6 +71,7 @@ export default {
             (this.habitat = data.habitat.name),
             (this.evolui_null = data.evolves_from_species),
             (this.ovos = data.egg_groups),
+            (this.urlevo = data.evolution_chain.url),
             (this.evolui_de = this.evolui_null.name)
           )
         );
@@ -74,80 +79,46 @@ export default {
     mudarAlguns(url = this.geracao.url) {
       axios.get(url).then(({ data }) => (this.infoGen = data));
     },
+    linhaEvo(url = this.urlevo) {
+      axios.get(url).then(({ data }) => (this.linha_evo = data));
+    },
   },
 };
 </script>
 <template>
   <div class="tudo">
-    <!-- Caixa de informações superior -->
-    <div id="informa" v-bind:class="classObject">
-      <!--Nome do pokémon-->
-      <h1 class="nomeDoPokemon">{{ texto }}</h1>
-      <span
-        v-if="esp_info.is_legendary == true"
-        id="tipoTexto"
-        class="tipo_lendario"
-        >Lendário</span
-      >
-      <span v-if="texto == 'amoonguss'" id="tipoTexto" class="tipo_lendario"
-        >Sus</span
-      >
-      <span
-        v-if="esp_info.is_mythical == true"
-        id="tipoTexto"
-        class="tipo_mitico"
-        >Mítico</span
-      >
-      <!--ID do pokémon-->
-      <p>{{ id }}</p>
-      <!-- Geração do pokémon -->
-      <p>{{ infoGen.id }}ª Geração</p>
-      <!-- Tipos do pokémon -->
-      <div class="tipo">
-        <h2>Tipos:</h2>
-        <div v-for="(value, index) in tipo" :key="'value' + index">
-          <span id="tipoTexto" :class="value.type.name">
-            {{ value.type.name }}
-          </span>
-        </div>
-      </div>
-      <!-- Sprites do pokémon -->
-      <div class="fotos">
-        <img
-          class="normalers"
-          :src="img.front_default"
-          alt="Foto Indisponível"
-        />
-      </div>
-      <!-- Informações principais do pokémon -->
+    <!-- Caixa de informações inferior -->
+    <div id="informa2">
+      <h2>Shiny:</h2>
+      <img class="shiny" :src="img.front_shiny" alt="Foto Indisponível" />
+      <!-- Outras informações do pokémon -->
       <div class="bloco">
-        <h2>Estatísticas:</h2>
-        <div v-for="(value, index) in stats" :key="'value' + index">
-          <span class="info">
-            {{ value.stat.name }}:
-            {{ value.base_stat }}
-          </span>
-        </div>
+        <h2>Cor:</h2>
+        <span class="info">{{ cor }}</span>
+        <h2>Formato:</h2>
+        <span class="info">{{ shape }}</span>
+        <h2>Habitat:</h2>
+        <span class="info">{{ habitat }}</span>
       </div>
       <div class="bloco">
-        <h2>Habilidades:</h2>
-        <div v-for="(value, index) in habilidade" :key="'value' + index">
-          <span class="info">
-            {{ value.ability.name }}
-          </span>
-        </div>
+        <h2>Taxa de captura:</h2>
+        <span class="info">{{ esp_info.capture_rate }}</span>
       </div>
       <div class="bloco">
-        <h2>Formas:</h2>
-        <div v-for="(value, index) in formas" :key="'value' + index">
+        <h2>Felicidade Base:</h2>
+        <span class="info">{{ esp_info.base_happiness }}</span>
+      </div>
+      <div v-if="evolui_null != null" class="bloco">
+        <h2>Evolui de:</h2>
+        <span class="info">{{ evolui_de }}</span>
+      </div>
+      <div class="bloco">
+        <h2>Grupo de ovos:</h2>
+        <div v-for="(value, index) in ovos" :key="'value' + index">
           <span class="info">
             {{ value.name }}
           </span>
         </div>
-      </div>
-      <div class="bloco">
-        <h2>Tamanho:</h2>
-        <span class="info"> {{ tamanho / 10 }}m </span>
       </div>
     </div>
   </div>
@@ -160,11 +131,11 @@ export default {
   text-transform: capitalize;
 }
 
-div#informa {
+div#informa2 {
   background-color: crimson;
   color: white;
   width: 53%;
-  height: 45%;
+  height: 35%;
   padding: 10px;
   margin: 2%;
   border-radius: 10px;
@@ -172,7 +143,7 @@ div#informa {
   float: right;
 
   position: fixed;
-  top: 7%;
+  top: 53%;
   right: 1%;
   overflow-y: scroll;
 }

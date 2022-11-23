@@ -97,10 +97,11 @@ button.poke:active {
 }
 
 img {
-  width: 1px;
+  width: 0px;
 }
 
 .poke:hover img {
+  width: 1px;
   transform: scale(150);
   z-index: 4;
 }

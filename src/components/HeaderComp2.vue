@@ -54,30 +54,23 @@ export default {
         </RouterLink></span
       >
       <!-- Barra de pesquisa -->
-      <div class="pesquisa">
-        <input
-          class="pesquisarInput"
-          placeholder="Pesquise o Pokémon pelo nome"
-          type="text"
-          v-model="nova_pesquisa"
-          @keyup="pesquisarPoke(nova_pesquisa)"
-        />
-      </div>
-      <!-- Dropdown dos tipos -->
-      <!-- <label for="tipos">Tipos:</label>
       <div class="dropdown">
-        <select name="tipos" v-model="novo_tipo" @click="mudarTipo(novo_tipo)">
-          <option
-            v-for="tipo in tipoLista"
-            :key="tipo.nome"
-            :value="tipo.valor"
-            :class="tipo.nome.toLowerCase()"
-            id="opcao"
-          >
-            {{ tipo.nome }}
-          </option>
-        </select>
-      </div> -->
+        <button class="dropbtn">Pesquisar</button>
+        <div class="dropdown-content">
+          <div class="pesquisa">
+            <input
+              class="pesquisarInput"
+              placeholder="Pesquise o Pokémon pelo nome"
+              type="text"
+              v-model="nova_pesquisa"
+              @keyup.enter="pesquisarPoke(nova_pesquisa)"
+            />
+            <button class="poke" @click="pesquisarPoke(nova_pesquisa)">
+              Pesquisar
+            </button>
+          </div>
+        </div>
+      </div>
       <div class="dropdown">
         <button class="dropbtn">Tipos</button>
         <div class="dropdown-content">
@@ -140,6 +133,7 @@ export default {
 }
 
 /* Links inside the dropdown */
+
 .dropdown-content span {
   width: 150px;
   height: 50px;
@@ -197,6 +191,30 @@ div.pesquisa {
 
 div.pesquisa input {
   width: 350px;
+}
+
+button.poke {
+  width: auto;
+  height: 40px;
+  border-radius: 12px;
+  margin: 5px;
+  background-color: rgb(124, 19, 40);
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  font-weight: bolder;
+  transition: 0.1s;
+  text-transform: capitalize;
+  cursor: pointer;
+  border: solid 0px black;
+}
+
+button.poke:hover {
+  transform: scale(1.3);
+  background: linear-gradient(180deg, #ff0033 50%, white 50%);
+  border: solid 3px black;
+  color: rgb(255, 255, 255);
+  font-weight: 1000;
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
 }
 
 /* Coisas gerais do header */

@@ -1,0 +1,76 @@
+div.mitico {
+    background: linear-gradient(
+      45deg,
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      violet,
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194),
+      rgb(194, 15, 194)
+    );
+    background-size: 300%;
+    animation: border 4s linear infinite;
+  }
+  
+  div.lendario {
+    background: linear-gradient(
+      45deg,
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      yellow,
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20),
+      rgb(220, 150, 20)
+    );
+    background-size: 300%;
+    animation: border 4s linear infinite;
+  }
+  
+  @keyframes border {
+    0%,
+    100% {
+      background-position: 0 0;
+    }
+  
+    50% {
+      background-position: 300%;
+    }
+  }
+  
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(146, 19, 45);
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(100, 11, 30);
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(75, 8, 22);
+}
