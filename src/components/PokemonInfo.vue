@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       esp_info: {},
+      forma_info: {},
       geracao: {},
       cor: {},
       shape: {},
@@ -42,10 +43,12 @@ export default {
   created() {
     this.fetchEspInfo();
     this.mudarAlguns();
+    this.fetchFormaInfo();
   },
   watch: {
     texto() {
       this.fetchEspInfo();
+      this.fetchFormaInfo();
     },
     esp_info() {
       this.mudarAlguns();
@@ -70,6 +73,11 @@ export default {
             (this.evolui_de = this.evolui_null.name)
           )
         );
+    },
+    fetchFormaInfo(
+      url = "https://pokeapi.co/api/v2/pokemon-form/" + this.texto
+    ) {
+      axios.get(url).then(({ data }) => (this.forma_info = data));
     },
     mudarAlguns(url = this.geracao.url) {
       axios.get(url).then(({ data }) => (this.infoGen = data));
@@ -97,6 +105,18 @@ export default {
         id="tipoTexto"
         class="tipo_mitico"
         >Mítico</span
+      >
+      <span
+        v-if="esp_info.is_mythical == true"
+        id="tipoTexto"
+        class="tipo_mitico"
+        >Mítico</span
+      >
+      <span
+        v-if="forma_info.is_mega == true"
+        id="tipoTexto"
+        class="tipo_megaevo"
+        >MegaEvolução</span
       >
       <!--ID do pokémon-->
       <p>{{ id }}</p>

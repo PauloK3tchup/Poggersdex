@@ -30,16 +30,26 @@ export default {
         { nome: "Desconhecido", valor: "10001" },
         { nome: "Sombra", valor: "10002" },
       ],
+      filtroLista: [
+        { nome: "Nenhum", valor: "" },
+        { nome: "MegaEvo", valor: "-mega" },
+        { nome: "Gigantamax", valor: "-gmax" },
+      ],
     };
   },
   //Pinia
   computed: {
     ...mapStores(useCounterStore),
-    ...mapState(useCounterStore, ["count", "pesquisa", "tipo"]),
+    ...mapState(useCounterStore, ["count", "pesquisa", "tipo", "filtro"]),
   },
   //Pinia 2: O retorno
   methods: {
-    ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
+    ...mapActions(useCounterStore, [
+      "increment",
+      "pesquisarPoke",
+      "mudarTipo",
+      "mudarFiltro",
+    ]),
   },
 };
 </script>
@@ -89,6 +99,26 @@ export default {
           </span>
         </div>
       </div>
+      <div class="dropdown">
+        <button class="dropbtn">Outros Filtros</button>
+        <div class="dropdown-content">
+          <span
+            v-for="filtro in filtroLista"
+            :key="filtro.nome"
+            :value="filtro.valor"
+            :class="filtro.nome.toLowerCase()"
+            id="opcao"
+            @click="
+              nova_pesquisa = filtro.valor;
+              pesquisarPoke(nova_pesquisa);
+              novo_filtro = filtro.valor;
+              mudarFiltro(novo_filtro);
+            "
+          >
+            {{ filtro.nome }}
+          </span>
+        </div>
+      </div>
     </div>
     <!-- <div class="menu-direito">
       <span>
@@ -99,6 +129,8 @@ export default {
 </template>
 
 <style scoped>
+@import "../assets/tipos.css";
+
 /* Dropdown */
 .dropbtn {
   background-color: crimson;
@@ -123,9 +155,10 @@ export default {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgb(124, 19, 40);
+  padding: 15px;
   min-width: 160px;
-  width: 450px;
+  width: 480px;
   z-index: 1;
   height: fit-content;
   border-radius: 10px;
@@ -198,7 +231,7 @@ button.poke {
   height: 40px;
   border-radius: 12px;
   margin: 5px;
-  background-color: rgb(124, 19, 40);
+  background-color: rgb(66, 17, 27);
   color: rgb(255, 255, 255);
   font-size: 15px;
   font-weight: bolder;
@@ -287,6 +320,51 @@ a.botão:hover {
 }
 
 /* Tipos */
+
+.megaevo {
+  background: linear-gradient(
+    124deg,
+    #ff2400,
+    #e81d1d,
+    #e8b71d,
+    #e3e81d,
+    #1de840,
+    #1ddde8,
+    #2b1de8,
+    #dd00f3,
+    #dd00f3
+  );
+  background-size: 1800% 1800%;
+  color: rgb(255, 255, 255);
+
+  -webkit-animation: rainbow 5s ease infinite;
+  -z-animation: rainbow 5s ease infinite;
+  -o-animation: rainbow 5s ease infinite;
+  animation: rainbow 5s ease infinite;
+}
+
+.gigantamax {
+  background: linear-gradient(
+    124deg,
+    rgb(161, 11, 41),
+    #ff1736,
+    rgb(161, 11, 41),
+    rgb(161, 11, 41),
+    #ff1736,
+    #ff1736,
+    rgb(161, 11, 41),
+    #ff1736,
+    #ff1736
+  );
+  background-size: 1800% 1800%;
+
+  -webkit-animation: rainbow 5s ease infinite;
+  -z-animation: rainbow 5s ease infinite;
+  -o-animation: rainbow 5s ease infinite;
+  animation: rainbow 5s ease infinite;
+  color: rgb(255, 255, 255);
+}
+
 .desconhecido {
   background-color: crimson;
   color: rgb(255, 255, 255);

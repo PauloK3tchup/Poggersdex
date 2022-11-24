@@ -23,6 +23,7 @@ export default {
       habilidades: {},
       formas: {},
       stats: {},
+      loading: true,
     };
   },
   //Funções que começam sendo executadas
@@ -33,7 +34,7 @@ export default {
   //Pinia
   computed: {
     ...mapStores(useCounterStore),
-    ...mapState(useCounterStore, ["count", "pesquisa", "tipo"]),
+    ...mapState(useCounterStore, ["count", "pesquisa", "tipo", "filtro"]),
   },
   //Variáveis monitoradas
   watch: {
@@ -62,6 +63,10 @@ export default {
     tipo() {
       this.fetchPokemon();
     },
+    //Filtro selecionado
+    filtro() {
+      this.fetchPokemon();
+    },
   },
   //Funções
   methods: {
@@ -72,12 +77,24 @@ export default {
       if (this.tipo != 0) {
         axios.get(url).then(({ data }) => (this.api.results = data.pokemon));
       } else {
-        //Buscar todos os pokémon
-        axios
-          .get(
-            "https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0"
-          )
-          .then(({ data }) => (this.api = data));
+        if (this.filtro != "") {
+          //Buscar os pokémon com filtro
+          axios
+            .get("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+            .then(({ data }) => (this.api = data));
+        } else {
+          //Buscar todos os pokémon
+          axios
+            .get(
+              "https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0"
+            )
+            .then(
+              ({ data }) => (this.api = data)
+              // response => {
+              //   this.loading = false;
+              // }
+            );
+        }
       }
     },
     //Buscar informações do pokémon selecionado

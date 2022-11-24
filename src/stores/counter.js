@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 export const useCounterStore = defineStore("counter", () => {
   const pesquisa = ref("");
   const tipo = ref(0);
+  const filtro = ref("");
   const count = ref(0);
   const doubleCount = computed(() => count.value * 2);
   function increment() {
@@ -15,6 +16,18 @@ export const useCounterStore = defineStore("counter", () => {
   function mudarTipo(novo_tipo) {
     tipo.value = novo_tipo.toLowerCase();
   }
+  function mudarFiltro(novo_filtro) {
+    filtro.value = novo_filtro.toLowerCase();
+  }
 
-  return { doubleCount, pesquisa, tipo, increment, pesquisarPoke, mudarTipo };
+  return {
+    filtro,
+    doubleCount,
+    pesquisa,
+    tipo,
+    increment,
+    pesquisarPoke,
+    mudarTipo,
+    mudarFiltro,
+  };
 });
