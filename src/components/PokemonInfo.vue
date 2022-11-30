@@ -16,12 +16,6 @@ export default {
       esp_info: {},
       forma_info: {},
       geracao: {},
-      cor: {},
-      shape: {},
-      habitat: {},
-      evolui_null: {},
-      evolui_de: {},
-      egg_group: {},
       infoGen: {},
     };
   },
@@ -63,14 +57,7 @@ export default {
         .get(url)
         .then(
           ({ data }) => (
-            (this.esp_info = data),
-            (this.geracao = data.generation),
-            (this.cor = data.color.name),
-            (this.shape = data.shape.name),
-            (this.habitat = data.habitat.name),
-            (this.evolui_null = data.evolves_from_species),
-            (this.ovos = data.egg_groups),
-            (this.evolui_de = this.evolui_null.name)
+            (this.esp_info = data), (this.geracao = data.generation)
           )
         );
     },
@@ -99,12 +86,6 @@ export default {
       >
       <span v-if="texto == 'amoonguss'" id="tipoTexto" class="tipo_lendario"
         >Sus</span
-      >
-      <span
-        v-if="esp_info.is_mythical == true"
-        id="tipoTexto"
-        class="tipo_mitico"
-        >Mítico</span
       >
       <span
         v-if="esp_info.is_mythical == true"

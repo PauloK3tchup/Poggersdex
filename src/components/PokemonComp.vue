@@ -74,26 +74,28 @@ export default {
     ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
     //Buscar pokémon com 1 tipo selecionado
     fetchPokemon(url = `http://pokeapi.co/api/v2/type/${this.tipo}`) {
+      this.loading = true;
       if (this.tipo != 0) {
-        axios.get(url).then(({ data }) => (this.api.results = data.pokemon));
+        axios
+          .get(url)
+          .then(
+            ({ data }) => (
+              (this.api.results = data.pokemon), (this.loading = false)
+            )
+          );
       } else {
         if (this.filtro != "") {
           //Buscar os pokémon com filtro
           axios
             .get("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
-            .then(({ data }) => (this.api = data));
+            .then(({ data }) => ((this.api = data), (this.loading = false)));
         } else {
           //Buscar todos os pokémon
           axios
             .get(
               "https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0"
             )
-            .then(
-              ({ data }) => (this.api = data)
-              // response => {
-              //   this.loading = false;
-              // }
-            );
+            .then(({ data }) => ((this.api = data), (this.loading = false)));
         }
       }
     },
@@ -120,7 +122,8 @@ export default {
     <div class="container">
       <h1 class="letraGrande">Lista de Pokémon: {{ pesquisa }}</h1>
       <!-- Lista de pokémon com 1 tipo selecionado -->
-      <ul class="lista-poke" v-if="tipo != 0">
+      <h2 v-if="loading == true">Carregando...</h2>
+      <ul class="lista-poke" v-if="tipo != 0 && loading == false">
         <li
           class="pokemao"
           v-for="indice in api.results.filter((a) =>
@@ -138,7 +141,7 @@ export default {
         </li>
       </ul>
       <!-- Lista de pokémon com nenhum tipo selecionado -->
-      <ul class="lista-poke" v-else-if="tipo == 0">
+      <ul class="lista-poke" v-else-if="tipo == 0 && loading == false">
         <li
           class="pokemao"
           v-for="pokemon in api.results.filter((a) =>
@@ -167,16 +170,7 @@ export default {
       :tamanho="poke.height"
       :stats="stats"
     />
-    <PokemonInfo2
-      :texto="poke.name"
-      :id="poke.id"
-      :habilidade="habilidades"
-      :img="sprite"
-      :tipo="tipos"
-      :formas="formas"
-      :tamanho="poke.height"
-      :stats="stats"
-    />
+    <PokemonInfo2 :texto="poke.name" :img="sprite" />
   </main>
 </template>
 <style>

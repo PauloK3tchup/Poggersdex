@@ -7,6 +7,7 @@ export default {
       sprite: {},
       id: {},
       gen: {},
+      loading: true,
     };
   },
   created() {
@@ -15,10 +16,15 @@ export default {
   },
   methods: {
     fetchFoto(url = "http://pokeapi.co/api/v2/pokemon/" + this.pokemonP) {
+      this.loading = true;
       axios
         .get(url)
         .then(
-          ({ data }) => ((this.sprite = data.sprites), (this.id = data.id))
+          ({ data }) => (
+            (this.sprite = data.sprites),
+            (this.id = data.id),
+            (this.loading = false)
+          )
         );
     },
     fetchGen(
@@ -31,13 +37,24 @@ export default {
 </script>
 
 <template>
-  <button class="poke">
-    <h3 class="nomeDoPoke">{{ id }}.{{ pokemonP }}</h3>
-    <img :src="sprite.front_default" />
-    <p>{{ gen }}</p>
-  </button>
+  <div>
+    <button v-if="loading == false" class="poke">
+      <h3 class="nomeDoPoke">{{ id }}.{{ pokemonP }}</h3>
+      <img :src="sprite.front_default" />
+      <p>{{ gen }}</p>
+    </button>
+    <div class="loading" v-if="loading == true">
+      <img src="../assets/pokeloading.gif" alt="Loading..." />
+    </div>
+  </div>
 </template>
 <style scoped>
+div.loading img {
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+}
+
 button.poke {
   width: 150px;
   height: 150px;

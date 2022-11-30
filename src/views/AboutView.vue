@@ -1,15 +1,12 @@
-<script setup>
-import Preloader from "../components/Preloader.vue";
-</script>
+<script setup></script>
 <template>
   <main>
-    <div class="loading">
-      <Preloader />
-    </div>
+    <img src="../assets/easteregg.gif" alt="you have been spamton'd" />
   </main>
 </template>
 <style scoped>
-.loading {
-  top: 200px;
+img {
+  width: 20%;
+  height: auto;
 }
 </style>

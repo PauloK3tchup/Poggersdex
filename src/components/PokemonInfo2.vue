@@ -1,16 +1,7 @@
 <script>
 import axios from "axios";
 export default {
-  props: [
-    "habilidade",
-    "img",
-    "texto",
-    "id",
-    "tipo",
-    "formas",
-    "tamanho",
-    "stats",
-  ],
+  props: ["img", "texto"],
   data() {
     return {
       esp_info: {},

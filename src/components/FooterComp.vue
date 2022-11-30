@@ -7,6 +7,9 @@ export default {};
       Este projeto foi feito por Paulo César & Gabriel Domingos utilizando a
       PokeApi.
     </p>
+    <a href="https://www.deviantart.com/termatior0"
+      >Arte do loading (pokebola) por termatior0</a
+    >
   </footer>
 </template>
 
@@ -15,6 +18,10 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+a {
+  color: white;
 }
 
 footer {
