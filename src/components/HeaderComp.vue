@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       pesquisa_alteravel: "bulbasaur",
-      //Variáveis do dropdown tipos
+      //Variáveis do dropdown "tipos"
       tipoLista: [
         { nome: "Nenhum", valor: "0" },
         { nome: "Normal", valor: "1" },
@@ -30,6 +30,7 @@ export default {
         { nome: "Desconhecido", valor: "10001" },
         { nome: "Sombra", valor: "10002" },
       ],
+      //Variáveis do dropdown "outros filtros"
       filtroLista: [
         { nome: "Nenhum", valor: "" },
         { nome: "MegaEvo", valor: "-mega" },
@@ -63,7 +64,7 @@ export default {
           PoggersDex
         </RouterLink></span
       >
-      <!-- Barra de pesquisa -->
+      <!-- Dropdown barra de pesquisa -->
       <div class="dropdown">
         <button class="dropbtn">Pesquisar</button>
         <div class="dropdown-content">
@@ -81,6 +82,7 @@ export default {
           </div>
         </div>
       </div>
+      <!-- Dropdown "tipos" -->
       <div class="dropdown">
         <button class="dropbtn">Tipos</button>
         <div class="dropdown-content">
@@ -99,6 +101,7 @@ export default {
           </span>
         </div>
       </div>
+      <!-- Dropdown "outros filtros" -->
       <div class="dropdown">
         <button class="dropbtn">Outros Filtros</button>
         <div class="dropdown-content">
@@ -145,13 +148,11 @@ export default {
   transition: 0.15s;
 }
 
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -165,8 +166,6 @@ export default {
   transition: 0.15s;
 }
 
-/* Links inside the dropdown */
-
 .dropdown-content span {
   width: 150px;
   height: 50px;
@@ -179,7 +178,6 @@ export default {
   border-radius: 10px;
 }
 
-/* Change color of dropdown links on hover */
 .dropdown-content span:hover {
   z-index: 5;
   transform: scale(1.2) rotate(5deg);
@@ -191,12 +189,10 @@ export default {
   filter: brightness(0.5);
 }
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
   background-color: rgb(124, 19, 40);
 }

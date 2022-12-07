@@ -1,7 +1,9 @@
 <script>
 import axios from "axios";
 export default {
+  //Informações importadas do PokemonComp
   props: ["img", "texto"],
+  //Variáveis
   data() {
     return {
       esp_info: {},
@@ -18,6 +20,7 @@ export default {
     };
   },
   computed: {
+    //Obj que define a class do componente
     classObject: function () {
       return {
         lendario:
@@ -32,17 +35,19 @@ export default {
       };
     },
   },
+  //Funções que são ativadas quando o site inicia
   created() {
     this.fetchEspInfo();
-    this.mudarAlguns();
+    this.fetchInfoGen();
     this.linhaEvo();
   },
+  //Variáveis sendo observadas
   watch: {
     texto() {
       this.fetchEspInfo();
     },
     esp_info() {
-      this.mudarAlguns();
+      this.fetchInfoGen();
       this.linhaEvo();
     },
   },
@@ -67,9 +72,11 @@ export default {
           )
         );
     },
-    mudarAlguns(url = this.geracao.url) {
+    //Buscar Informações da geração
+    fetchInfoGen(url = this.geracao.url) {
       axios.get(url).then(({ data }) => (this.infoGen = data));
     },
+    //Buscar info da linha evolutiva
     linhaEvo(url = this.urlevo) {
       axios.get(url).then(({ data }) => (this.linha_evo = data));
     },
@@ -79,7 +86,7 @@ export default {
 <template>
   <div class="tudo">
     <!-- Caixa de informações inferior -->
-    <div id="informa2">
+    <div id="informa2" v-bind:class="classObject">
       <h2>Shiny:</h2>
       <img class="shiny" :src="img.front_shiny" alt="Foto Indisponível" />
       <!-- Outras informações do pokémon -->

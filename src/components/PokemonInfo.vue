@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 export default {
+  //Props do PokemonComp
   props: [
     "habilidade",
     "img",
@@ -11,6 +12,7 @@ export default {
     "tamanho",
     "stats",
   ],
+  // Variáveis
   data() {
     return {
       esp_info: {},
@@ -20,6 +22,7 @@ export default {
     };
   },
   computed: {
+    //Obj que define a class do componente
     classObject: function () {
       return {
         lendario:
@@ -34,20 +37,23 @@ export default {
       };
     },
   },
+  //Funções quando o site inicia
   created() {
     this.fetchEspInfo();
-    this.mudarAlguns();
+    this.fetchInfoGen();
     this.fetchFormaInfo();
   },
+  //Variáveis sendo observadas
   watch: {
     texto() {
       this.fetchEspInfo();
       this.fetchFormaInfo();
     },
     esp_info() {
-      this.mudarAlguns();
+      this.fetchInfoGen();
     },
   },
+  //Funções
   methods: {
     //Buscar geração e outras informações com base na espécie do pokémon
     fetchEspInfo(
@@ -61,12 +67,14 @@ export default {
           )
         );
     },
+    //Buscar informações da forma do Pokémon
     fetchFormaInfo(
       url = "https://pokeapi.co/api/v2/pokemon-form/" + this.texto
     ) {
       axios.get(url).then(({ data }) => (this.forma_info = data));
     },
-    mudarAlguns(url = this.geracao.url) {
+    //Buscar Geração
+    fetchInfoGen(url = this.geracao.url) {
       axios.get(url).then(({ data }) => (this.infoGen = data));
     },
   },
@@ -78,6 +86,7 @@ export default {
     <div id="informa" v-bind:class="classObject">
       <!--Nome do pokémon-->
       <h1 class="nomeDoPokemon">{{ texto }}</h1>
+      <!-- Indicador caso seja Lendário/Mítico/MegaEvo -->
       <span
         v-if="esp_info.is_legendary == true"
         id="tipoTexto"

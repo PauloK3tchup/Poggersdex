@@ -159,7 +159,7 @@ export default {
         </li>
       </ul>
     </div>
-    <!-- Informações do pokémon sendo exportadas para o outro componente -->
+    <!-- Informações do pokémon sendo exportadas para o componente A -->
     <PokemonInfo
       :texto="poke.name"
       :id="poke.id"
@@ -170,6 +170,7 @@ export default {
       :tamanho="poke.height"
       :stats="stats"
     />
+    <!-- Informações do pokémon sendo exportadas para o componente B -->
     <PokemonInfo2 :texto="poke.name" :img="sprite" />
   </main>
 </template>

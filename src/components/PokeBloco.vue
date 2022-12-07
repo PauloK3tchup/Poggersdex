@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 export default {
+  //Variáveis
   props: ["pokemonP"],
   data() {
     return {
@@ -10,11 +11,14 @@ export default {
       loading: true,
     };
   },
+  //Funções quando o site abre
   created() {
     this.fetchFoto();
     this.fetchGen();
   },
+  //Funções
   methods: {
+    //Buscar foto e id
     fetchFoto(url = "http://pokeapi.co/api/v2/pokemon/" + this.pokemonP) {
       this.loading = true;
       axios
@@ -27,6 +31,7 @@ export default {
           )
         );
     },
+    //Buscar Geração
     fetchGen(
       url = "https://pokeapi.co/api/v2/pokemon-species/" + this.pokemonP
     ) {
@@ -38,11 +43,13 @@ export default {
 
 <template>
   <div>
+    <!-- Botão do pokémon -->
     <button v-if="loading == false" class="poke">
       <h3 class="nomeDoPoke">{{ id }}.{{ pokemonP }}</h3>
       <img :src="sprite.front_default" />
       <p>{{ gen }}</p>
     </button>
+    <!-- Carregamento -->
     <div class="loading" v-if="loading == true">
       <img src="../assets/pokeloading.gif" alt="Loading..." />
     </div>

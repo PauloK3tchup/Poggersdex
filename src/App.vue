@@ -1,15 +1,15 @@
 <script>
 import { RouterView } from "vue-router";
-import HeaderComp2 from "./components/HeaderComp2.vue";
+import HeaderComp from "./components/HeaderComp.vue";
 import FooterComp from "./components/FooterComp.vue";
 export default {
-  components: { RouterView, HeaderComp2, FooterComp },
+  components: { RouterView, HeaderComp, FooterComp },
 };
 </script>
 
 <template>
   <nav>
-    <HeaderComp2 />
+    <HeaderComp />
   </nav>
   <main>
     <RouterView />
