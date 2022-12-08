@@ -19,7 +19,7 @@ export default {
   //Funções
   methods: {
     //Buscar foto e id
-    fetchFoto(url = "http://pokeapi.co/api/v2/pokemon/" + this.pokemonP) {
+    fetchFoto(url = "https://pokeapi.co/api/v2/pokemon/" + this.pokemonP) {
       this.loading = true;
       axios
         .get(url)
