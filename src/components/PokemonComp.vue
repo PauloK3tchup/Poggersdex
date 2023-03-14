@@ -73,10 +73,10 @@ export default {
     //Pinia
     ...mapActions(useCounterStore, ["increment", "pesquisarPoke", "mudarTipo"]),
     //Buscar pokémon com 1 tipo selecionado
-    fetchPokemon(url = `https://pokeapi.co/api/v2/type/${this.tipo}`) {
+    async fetchPokemon(url = `https://pokeapi.co/api/v2/type/${this.tipo}`) {
       this.loading = true;
       if (this.tipo != 0) {
-        axios
+        await axios
           .get(url)
           .then(
             ({ data }) => (
@@ -100,8 +100,8 @@ export default {
       }
     },
     //Buscar informações do pokémon selecionado
-    mostrarInfo(url = this.urlP + this.atual) {
-      axios
+    async mostrarInfo(url = this.urlP + this.atual) {
+      await axios
         .get(url)
         .then(
           ({ data }) => (

@@ -19,9 +19,11 @@ export default {
   //Funções
   methods: {
     //Buscar foto e id
-    fetchFoto(url = "https://pokeapi.co/api/v2/pokemon/" + this.pokemonP) {
+    async fetchFoto(
+      url = "https://pokeapi.co/api/v2/pokemon/" + this.pokemonP
+    ) {
       this.loading = true;
-      axios
+      await axios
         .get(url)
         .then(
           ({ data }) => (
@@ -32,10 +34,12 @@ export default {
         );
     },
     //Buscar Geração
-    fetchGen(
+    async fetchGen(
       url = "https://pokeapi.co/api/v2/pokemon-species/" + this.pokemonP
     ) {
-      axios.get(url).then(({ data }) => (this.gen = data.generation.name));
+      await axios
+        .get(url)
+        .then(({ data }) => (this.gen = data.generation.name));
     },
   },
 };
