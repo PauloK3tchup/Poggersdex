@@ -11,7 +11,7 @@ export default {
       loading: true,
     };
   },
-  //Funções quando o site abre
+  //Funções quando o site inicia
   created() {
     this.fetchFoto();
     this.fetchGen();
